@@ -121,7 +121,7 @@ vulnerable to SQL injection.
 
 Escaping is done as in C.  For example to escape the percent symbol:
 
-``\\%``
+``\%``
 
 To escape a backslash use another backslash:
 
