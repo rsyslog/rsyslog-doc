@@ -1,8 +1,8 @@
 Contributor Hall of Fame
 ========================
 
-**This page is dedicated to all the people who helped make
-`rsyslog <http://www.rsyslog.com/>`_ become a reality.** Unfortunately,
+**This page is dedicated to all the people who helped make**
+`rsyslog <http://www.rsyslog.com/>`_ **become a reality.** Unfortunately,
 I have begun this page in July of 2007, long after the project started.
 I try to extract all past contributor information from CVS, readme's,
 code etc - but I may fail. If you contributed and do not find yourself
