@@ -1,5 +1,5 @@
-rsyslog-docs (v7-stable)
-========================
+rsyslog-docs (master: v8-devel)
+===============================
 
 Documentation for the rsyslog project
 -------------------------------------
@@ -54,5 +54,3 @@ These assume default installs of Python for Windows and Linux
   3.  Run: git checkout v5-stable
 6.  Run: c:\python27\scripts\sphinx-build -b html source build
 7. open rsyslog-doc/build/index.html in a browser
-
-
