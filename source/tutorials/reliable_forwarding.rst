@@ -64,12 +64,13 @@ simple config file, you forward anything you receive to a remote server
 and have buffering applied automatically when it goes down. This must be
 done on the client machine.
 
-$ModLoad imuxsock # local message reception $WorkDirectory /rsyslog/work
-# default location for work (spool) files $ActionQueueType LinkedList #
-use asynchronous processing $ActionQueueFileName srvrfwd # set file
-name, also enables disk mode $ActionResumeRetryCount -1 # infinite
-retries on insert failure $ActionQueueSaveOnShutdown on # save in-memory
-data if rsyslog shuts down \*.\* @@server:port
+$ModLoad imuxsock # local message reception 
+$WorkDirectory /rsyslog/work # default location for work (spool) files 
+$ActionQueueType LinkedList # use asynchronous processing 
+$ActionQueueFileName srvrfwd # set file name, also enables disk mode 
+$ActionResumeRetryCount -1 # infinite retries on insert failure 
+$ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down 
+\*.\* @@server:port
 
 The port given above is optional. It may not be specified, in which case
 you only provide the server name. The "$ActionQueueFileName" is used to
@@ -111,14 +112,18 @@ your system.
 
 A sample for forwarding to two hosts looks like this:
 
-$ModLoad imuxsock # local message reception $WorkDirectory /rsyslog/work
-# default location for work (spool) files # start forwarding rule 1
+$ModLoad imuxsock # local message reception 
+$WorkDirectory /rsyslog/work # default location for work (spool) files 
+
+# start forwarding rule 1
 $ActionQueueType LinkedList # use asynchronous processing
 $ActionQueueFileName srvrfwd1 # set file name, also enables disk mode
 $ActionResumeRetryCount -1 # infinite retries on insert failure
 $ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts
-down \*.\* @@server1:port # end forwarding rule 1 # start forwarding
-rule 2 $ActionQueueType LinkedList # use asynchronous processing
+down \*.\* @@server1:port # end forwarding rule 1 
+
+# start forwarding rule 2 i
+$ActionQueueType LinkedList # use asynchronous processing
 $ActionQueueFileName srvrfwd2 # set file name, also enables disk mode
 $ActionResumeRetryCount -1 # infinite retries on insert failure
 $ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts
