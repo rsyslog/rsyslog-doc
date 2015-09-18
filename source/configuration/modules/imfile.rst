@@ -404,6 +404,9 @@ Legacy Configuration Directives
    This **activates** the current monitor. It has no parameters. If you
    forget this directive, no file monitoring will take place.
 
+   There is no new-style equivalent, because inputs are defined via
+   the input() object.
+
 .. index:: 
    single: imfile; $InputFilePollInterval
 
