@@ -80,12 +80,13 @@ re-queueing messages back into the main queue.
 ::
 
   $ModLoad omruleset # define ruleset for commonly written file
-  $RuleSet commonAction
+  $RuleSet CommonAction
   $RulesetCreateMainQueue on
   *.* /path/to/file.log
 
   #switch back to default ruleset
   $ruleset RSYSLOG_DefaultRuleset
+
   # begin first action
   # note that we must first specify which ruleset to use for omruleset:
   $ActionOmrulesetRulesetName CommonAction
@@ -97,6 +98,7 @@ re-queueing messages back into the main queue.
   $ActionOmrulesetRulesetName CommonAction
   :FROMHOST, isequal, "myhost.example.com" :omruleset:
   #end second action
+
   # of course, we can have "regular" actions alongside :omrulset: actions
   *.* /path/to/general-message-file.log
 
@@ -122,10 +124,11 @@ one.
   
   #switch back to default ruleset
   $ruleset RSYSLOG_DefaultRuleset
+
   # begin first action - here we filter on "error"
   # note that we must first specify which ruleset to use for omruleset:
   $ActionOmrulesetRulesetName nested
-  :msg, contains, "error :omruleset:
+  :msg, contains, "error" :omruleset:
   #end first action
   
   # begin second action - as an example we can do anything else in
