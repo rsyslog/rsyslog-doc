@@ -167,6 +167,39 @@
         <div class="bodywrapper">
       {%- endif %}
           <div class="body">
+	    <p></p>
+	    <p><font color="red">
+	      <b>Use this documentation with care!</b> It describes
+	      the <b>heavily outdated version 5</b>, which was actively
+	      developed around 2010 and is considered dead by the
+	      rsyslog team for many years now.
+	      <br/>
+	      <br/>
+	      This documentation reflects the latest update of the
+	      previously existing (now removed) v5-stable branch.
+	      <b>It describes the 5.10.2 version, which was never
+	      released.</b> As such, it contains some content that
+	      does not apply to any released version.
+	      <br/>
+	      <br/>
+	      To obtain the doc that properly matches your installed
+	      v5 version, obtain the doc set from your distro. Each
+	      version of rsyslog contained the version that exactly
+	      matches it.
+	      <br/>
+	      <br/>
+	      As general advise, it is <b>strongly suggested to
+	      upgrade to the current version supported by the rsyslog
+	      project</b>. The current version can always be found on
+	      the right-hand side info box on the
+	      <a href="http://www.rsyslog.com/">rsyslog web site</a>.
+	      <br/>
+	      <br/>
+	      Note that there is no rsyslog community support available
+	      for this heavily outdated version. If you need to stick
+	      with it, please ask your distribution for support.
+	    </font></p>
+	    <p></p>
             {% block body %} {% endblock %}
           </div>
       {%- if render_sidebar %}
