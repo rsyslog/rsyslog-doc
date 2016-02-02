@@ -156,4 +156,4 @@ To understand queue parameters, read
 -  **$MainMsgQueueSaveOnShutdown**  [on/**off**]
 -  **$MainMsgQueueWorkerThreads** <number>, num worker threads, default 1,
    recommended 1
--  **$MainMsgQueueWorkerThreadMinumumMessages** <number>, default 100
+-  **$MainMsgQueueWorkerThreadMinimumMessages** <number>, default 100
