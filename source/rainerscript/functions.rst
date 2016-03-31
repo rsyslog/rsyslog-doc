@@ -36,7 +36,31 @@ cstr(expr)
 cnum(expr)
 ----------
 
-   converts expr to a number (integer)
+   converts expr to a number (integer).
+   If a non-numerical digit is encountered, processing will stop, and the 
+   number from that point will be returned. Eg.
+
+::
+
+   cnum("30DEADBEEF")
+
+produces
+
+::
+
+    30
+
+While
+
+::
+
+    cnum("DEADBEEF")
+
+produces
+
+::
+
+    0
 
 wrap(str, wrapper_str)
 ----------------------
