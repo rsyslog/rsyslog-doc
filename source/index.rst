@@ -47,6 +47,7 @@ Reference
    whitepapers/index
    free_support
    compatibility/index
+   contributing
 
 Sponsors and Community
 ----------------------
