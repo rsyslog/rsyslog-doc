@@ -53,6 +53,16 @@ Parser Parameters
    In others case, the tag is the first word of the message and the tag is left
    empty.
 
+.. function:: remove.msgFirstSpace <boolean>
+
+   **Default**: off
+
+   Available since: 8.24.0
+
+   rfc3164 tell message is directly after tag including first white space. This
+   option tell to remove the first white space in message just after reading. It
+   make rfc3164 & rfc5424 syslog messages working in a better way.
+
 .. function:: detect.YearAfterTimestamp <boolean>
 
    **Default**: off
