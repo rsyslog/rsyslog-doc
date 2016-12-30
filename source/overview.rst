@@ -3,7 +3,7 @@
 Overview
 ========
 
-Rsyslog **The rocket-fast system for log processing** project started back in 
+Rsyslog -**The Rocket-fast SYStem for LOG processing**- project started back in 
 2004 to improve how `syslog <https://en.wikipedia.org/wiki/Syslog>`_ handled logs.
 
 Time flied, and now it has become a swiss army tool to handle logs, being able
@@ -41,7 +41,7 @@ that aproximately match log format standards.
 If messages follow `RFC3164 <https://tools.ietf.org/html/rfc3164>`_ or `RFC5424 <https://tools.ietf.org/html/rfc5424>`_ everything will work as expected. Otherwise, you'll have to struggle a bit with them.
 
 After receiving each message, Rsyslog main thread push it to *main_queue* and one worker 
-thread starts doing *the magic*. To do so, it interprets what written on the 
+thread starts doing *the magic*. To do so, it interprets what's written on the 
 `config file <http://www.rsyslog.com/doc/master/configuration/basic_structure.html#configuration-file>`_.
 
 At this point, this is more or less how Rsyslog should look to you:
@@ -56,13 +56,15 @@ At this point, this is more or less how Rsyslog should look to you:
    }
 
 Apart from queues, Rsyslog is powered by `templates <http://www.rsyslog.com/doc/master/configuration/templates.html>`_ 
-which can help formatting anything as string, completely modifying the resulting message, `rulesets <http://www.rsyslog.com/doc/master/concepts/multi_ruleset.html>`_ which let you dfine an specific-isolated processing pipeline and `actions <http://www.rsyslog.com/doc/master/configuration/actions.html>`_ which actually do the transformations.
+which can help formatting anything as string, completely modifying the resulting message, `rulesets <http://www.rsyslog.com/doc/master/concepts/multi_ruleset.html>`_ which let you define an specific-isolated processing pipeline and `actions <http://www.rsyslog.com/doc/master/configuration/actions.html>`_ which actually do the transformations.
 
 For better understanding, here is an example:
 
 .. code:: 
 
-    ruleset(name="special_pipeline"){
+    ruleset(name="special_pipeline"
+      #TODO this ruleset should have his own queue
+      ){
       action(
         name="special"
         file="special.log"
@@ -118,4 +120,10 @@ More or less, rsyslog process can be summarized as:
      ruleset_queue->"om*"
   }
 
-Full documentation can be found at http://www.rsyslog.com/doc/master/configuration/index.html
+Now you got an overview about how Rsyslog works, you could take your first steps, have a look on basic concepts or see how you could contribute. 
+
+Remember full documentation can be found at http://www.rsyslog.com/doc/master/configuration/index.html
+
+Regards,
+Rsyslog community
+
