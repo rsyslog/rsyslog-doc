@@ -70,14 +70,13 @@ Here's the configuration file:
    if $hostname == 'myhost' then ~
    #   or basic functions to select messages containing error and apply a template (by now, think in "format")
    :msg, contains, "error";RSYSLOG_FileFormat
-   
-# All the above messages, if not dropped, will be sent to bar.log
-TODO
+
+   # All the above messages, if not dropped, will be sent to bar.log
+   TODO
 
    # Using newer syntax, we are going to read another bunch of files
    input(file="/logs/*.log")
-   
-TODO
+   TODO
    # And ...
    action()
    
@@ -95,5 +94,4 @@ If everything is ok, you can run rsyslog normally and check if it's working as e
 
 Otherwise, if you got any problem, troubleshooting page will become your new best friend.
 
-If you reached this line, you probably deserve a rest before reading about basic concepts.
-
+If you reached this line, you probably deserve a rest before reading about :doc:`basic concepts <basics>`.
