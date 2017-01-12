@@ -38,7 +38,7 @@ Monitoring for changes supports file rotation under some circunstances:
 * rsyslog must be running while file is rotated, otherwise lines after last reading position won't be processed
 * once rsyslog ends with remaining lines, it will start reading new file from the beginning.
 
-Have in mind that files aren't monitored using paths, but have a *file handler* which doesn't change if file is renamed.
+Keep in mind that files aren't monitored using paths, but have a *file handler* which doesn't change if file is renamed.
 
 Module Parameters
 *****************
