@@ -40,8 +40,6 @@ Monitoring for changes supports file rotation under some circunstances:
 
 Have in mind that files aren't monitored using paths, but have a *file handler* which doesn't change if file is renamed.
 
-**TODO is that true for Windows also?**
-
 Module Parameters
 *****************
 
@@ -54,13 +52,9 @@ Available since:  8.1.5
 
 This specifies if imfile is shall run in *inotify* or *polling* mode.
 
-inotify:
+inotify: it works by registering with the OS to be notified when the file changes.
 
-**TODO add a description about how inotify works internally**
-
-Although lines are read *sooner* than using *polling* mode, there may be a slight delay due to internal processing.
-
-polling: it needs more resources and its slower than *inotify*, reason why **mode="inotify" is recommended**.
+polling: it needs more resources and its slower than *inotify*, reason why **mode="inotify" is recommended** if supported by your system.
 Basically there's a timeout at which file is checked for changes.
 
 ================  ======================
@@ -84,7 +78,7 @@ Default:      none
 Legacy:       $InputFileName
 ============  ===============
 
-File(s) being processed. This must be an absolute file path (no macros or templates). 
+File(s) being processed. This shall be an absolute file path (no macros or templates). 
 
 This option currently supports *file wilcards* in **inotify mode only** (it hasn't been implemented for polling) for monitoring multiple files. Consider wildcards are only valid at directory level, ie:
 
@@ -131,6 +125,7 @@ Default:  none
 Legacy:   $InputFileBindRuleset
 ========  =====================
 
+**TODO link ruleset**
 Binds the listener to a specific Ruleset.
 
 ============  =============================
@@ -194,13 +189,15 @@ Provides support for *simple* multi-line processing. Incompatible with *startmsg
 * 1 - paragraph: there is a blank line between log messages.
 * 2 - indented: new messages start at the beginning of a line. If a line starts with a space or tab ("\\t") it is part of the previous message.
 
+**This paramater is deprecated. DO NOT use it, because it would be removed in future releases**.
+
 ================  =================
 startmsg.regex:   "POSIX ERE regex"
 Default:          none
 Available since:  8.10.0
 ================  =================
 
-This option allows more complex multi-line messages, using provided regex as a start of new messages. As it is using regular expressions, it's more flexible than *readMode* but at the cost of lower performance.
+This option allows more complex multi-line messages, using provided regex as a start of new messages. As it is using regular expressions, it's more flexible than *readMode* but at the cost of lower performance when working with complex regular expressions.
 
 Note that *readMode* and *startmsg.regex* cannot both be defined for the same input.
 
