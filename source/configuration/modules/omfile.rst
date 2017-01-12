@@ -40,13 +40,6 @@ Legacy:    $ActionFileDefaultTemplate
 
 Set the default template to be used if an action is not configured to use a specific template.
 
-==============  ==================
-dirCreateMode:  "octalNumber"
-Default:        0700
-==============  ==================
-
-Sets the default directory creation mask to be used for an action if no explicit one is specified.
-
 ===============  ==================
 fileCreateMode:  "octalNumber"
 Default:         0644
@@ -81,6 +74,13 @@ Default:       current user (running Rsyslog) primary group
 =============  ============================================
 
 Sets the default file group (*gid*) to be used for an action if no explicit one is specified.
+
+==============  ==================
+dirCreateMode:  "octalNumber"
+Default:        0700
+==============  ==================
+
+Sets the default directory creation mask to be used for an action if no explicit one is specified.
 
 =========  ==============================
 dirOwner:  "username"
@@ -134,7 +134,7 @@ Default:   none
 =========  ===============
 
 For each message, the file name is generated based on the given template, having full control over how to format filenames.
-As with *file* parameter, is **strongly advised** that generated paths be like "/absolute/full/path/to/file".
+As with *file* parameter, generated paths should be like "/absolute/full/path/to/file".
 
 A cache of recent files is kept. Note that this cache can consume quite some memory (especially if large buffer sizes are used).
 For example, 1000 files with a 1M buffer and double-buffer enabled is 2GB of system memory (1000*1M*2).
@@ -211,62 +211,11 @@ On the other hand, if set to *on*, the extra headers considerably degrade compre
 Filesystem parameters
 ---------------------
 
-=========  ================
-dirOwner:  "username"
-Default:   *system default*
-Legacy:    $DirOwner
-=========  ================
-
-Set the owner for **newly created directories**. 
-This setting does not affect the owner of already existing directories.
-
-The parameter is a user name, for which the userid is
-obtained by rsyslogd during startup processing. Interim changes to
-the user mapping are not detected.
-
-================  ================
-dirOwnerNum:      "uid (number)"
-Default:          *system default*
-Available since:  7.5.8, 8.1.4
-================  ================
-
-Set the owner for **newly created directories**.
-This setting does not affect the owner of already existing directories.
-
-The parameter is a numerical ID, which is used regardless
-of whether the user actually exists. This can be useful if the user
-mapping is not available to rsyslog during startup.
-
-=========  ================
-dirGroup:  "groupname"
-Default:   *system default*
-Legacy:    $DirGroup
-=========  ================
-
-Set the group for **newly created directories**.
-This setting does not affect the group of already existing directories.
-   
-The parameter is a group name, for which the groupid is obtained by
-rsyslogd on during startup processing. Interim changes to the user
-mapping are not detected.
-
-============  ================
-dirGroupNum:  "gid (number)"
-Default:      *system default*
-============  ================
-
-Set the group for **newly created directories**.
-This setting does not affect the group of already existing directories.
-
-The parameter is a numerical ID, which is used regardless
-of whether the group actually exists. This can be useful if the group
-mapping is not available to rsyslog during startup.
-
-==========  ================
+==========  =============================
 fileOwner:  "username"
-Default:    *system default*
+Default:    *defined by module parameter*
 Legacy:     $FileOwner
-==========  ================
+==========  =============================
 
 Set the owner for **newly created files**. 
 This setting does not affect the owner of already existing files.
@@ -275,11 +224,11 @@ The parameter is a user name, for which the userid is
 obtained by rsyslogd during startup processing. Interim changes to
 the user mapping are not detected.
 
-================  ================
+================  =============================
 fileOwnerNum:     "uid (number)"
-Default:          *system default*
+Default:          *defined by module parameter*
 Available since:  7.5.8, 8.1.4
-================  ================
+================  =============================
 
 Set the owner for **newly created files**.
 This setting does not affect the owner of already existing files.
@@ -288,11 +237,11 @@ The parameter is a numerical ID, which is used regardless
 of whether the user actually exists. This can be useful if the user
 mapping is not available to rsyslog during startup.
 
-==========  ================
+==========  =============================
 fileGroup:  "groupname"
-Default:    *system default*
+Default:    *defined by module parameter*
 Legacy:     $FileGroup
-==========  ================
+==========  =============================
 
 Set the group for **newly created files**. 
 This setting does not affect the group of already existing files.
@@ -301,11 +250,11 @@ The parameter is a group name, for which the groupid is
 obtained by rsyslogd during startup processing. Interim changes to
 the user mapping are not detected.
 
-================  ================
+================  =============================
 fileGroupNum:     "gid (number)"
-Default:          *system default*
+Default:          *defined by module parameter*
 Available since:  7.5.8, 8.1.4
-================  ================
+================  =============================
 
 Set the group for **newly created files**.
 This setting does not affect the group of already existing files.
@@ -314,22 +263,14 @@ The parameter is a numerical ID, which is used regardless
 of whether the group actually exists. This can be useful if the group
 mapping is not available to rsyslog during startup.
 
-===============  ===============
+===============  =============================
 fileCreateMode:  "octalnumber"
-Default:         same as module
+Default:         *defined by module parameter*
 Legacy:          $FileCreateMode
-===============  ===============
+===============  =============================
 
 Allows to specify the file creation mask with which rsyslogd creates new files.
 If not specified, the module configuration is used.
-
-==============  ==============
-dirCreateMode:  "octalnumber"
-Default:        same as module
-Legacy:         $DirCreateMode
-==============  ==============
-
-The same as fileCreateMode, but for automatically generated directories.
 
 ===================  ===================
 failOnChOwnFailure:  "on|off"
@@ -353,6 +294,65 @@ Legacy:      $CreateDirs
 
 Create directories on an as-needed basis
 
+==============  =============================
+dirCreateMode:  "octalnumber"
+Default:        *defined by module parameter*
+Legacy:         $DirCreateMode
+==============  =============================
+
+The same as fileCreateMode, but for automatically generated directories.
+
+=========  =============================
+dirOwner:  "username"
+Default:   *defined by module parameter*
+Legacy:    $DirOwner
+=========  =============================
+
+Set the owner for **newly created directories**. 
+This setting does not affect the owner of already existing directories.
+
+The parameter is a user name, for which the userid is
+obtained by rsyslogd during startup processing. Interim changes to
+the user mapping are not detected.
+
+================  =============================
+dirOwnerNum:      "uid (number)"
+Default:          *defined by module parameter*
+Available since:  7.5.8, 8.1.4
+================  =============================
+
+Set the owner for **newly created directories**.
+This setting does not affect the owner of already existing directories.
+
+The parameter is a numerical ID, which is used regardless
+of whether the user actually exists. This can be useful if the user
+mapping is not available to rsyslog during startup.
+
+=========  =============================
+dirGroup:  "groupname"
+Default:   *defined by module parameter*
+Legacy:    $DirGroup
+=========  =============================
+
+Set the group for **newly created directories**.
+This setting does not affect the group of already existing directories.
+   
+The parameter is a group name, for which the groupid is obtained by
+rsyslogd on during startup processing. Interim changes to the user
+mapping are not detected.
+
+============  =============================
+dirGroupNum:  "gid (number)"
+Default:      *defined by module parameter*
+============  =============================
+
+Set the group for **newly created directories**.
+This setting does not affect the group of already existing directories.
+
+The parameter is a numerical ID, which is used regardless
+of whether the group actually exists. This can be useful if the group
+mapping is not available to rsyslog during startup.
+
 Expert parameters
 -----------------
 
@@ -374,7 +374,7 @@ Default:       "off"
 Legacy:        $OMFileASyncWriting
 =============  ===================
 
-if turned *on*, the files will be written in asynchronous mode via a
+If turned *on*, the files will be written in asynchronous mode via a
 separate thread. In that case, double buffers will be used so that
 one buffer can be filled while the other buffer is being written.
 Mind that if using *dynaFile* and this parameter is turned *on*, it can result in **a lot** of rsyslog threads (one per file currently open).
@@ -423,7 +423,7 @@ directory it resides after processing each batch. There currently
 is no way to sync only after each n-th batch.
 
 **Enabling sync causes a severe performance hit**.
-Actually, it slows omfile so much down, that the probability of loosing messages increases.
+Actually, it slows omfile down so much, that the probability of loosing messages increases.
 
 In short, you should enable syncing only if you know exactly what you do, and fully understand how the rest of the engine works, and have tuned the rest of the engine to lossless operations.
 
