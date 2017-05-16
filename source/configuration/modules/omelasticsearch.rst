@@ -274,6 +274,18 @@ The following sample does the following:
            queue.dequeuebatchsize="300"
            action.resumeretrycount="-1")
 
+**Caveats:**
+
+In order to read and forward any log messages from programs which write directly
+to the system journal (including but not limited to systemd services), the
+following module must be loaded before `omelasticsearch`.
+
+::
+
+    module(load="imjournal")
+
+
+
 
 This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
 project.
