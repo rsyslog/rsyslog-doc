@@ -37,7 +37,7 @@ Check the following usage examples to understand how these statements behave:
 
 **set**
 -------
-sets the value of a local-variable or json property, but the addressed
+sets the value of a local-variable or json property, but if the addressed
 variable already contains a value its behaviour differs as follows:
 
 **merges** the value if both existing and new value are objects, 
