@@ -141,8 +141,8 @@ This module supports module parameters, only.
    and would like to know the begin and end of a block of statistics.
    When "bracketing" is set to "on", impstats issues a "BEGIN" message
    before the first counter is issued, then all counter values
-   are issued, and then an "END" message follows. As such, if and only iff messages
-   are kept in sequence, a block of stats countes can easily be identified
+   are issued, and then an "END" message follows. As such, if and only if messages
+   are kept in sequence, a block of stats counts can easily be identified
    by those BEGIN and END messages.
 
    **Note well:** in general, sequence of syslog messages is **not**
