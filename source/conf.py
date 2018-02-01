@@ -209,17 +209,22 @@ todo_emit_warnings = True
 suppress_warnings = ['epub.unknown_project_files']
 
 # -- Options for HTML output ---------------------------------------------------
-
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+
+from better import better_theme_path
+html_theme_path = [better_theme_path]
+html_theme = 'better'
+#html_theme = 'default'
 #html_theme = 'basic'
 #html_style = 'rsyslog.css'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {}
+html_theme_options = {
+'inlinecss': ' @media (max-width: 820px) { div.sphinxsidebar { visibility: hidden; } }',
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
