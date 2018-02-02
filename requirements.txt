@@ -1,3 +1,9 @@
 
 # Need at least 1.5.1 due to some of the features we are using
 sphinx >=1.5.1
+
+# Preferred theme; integrates well with the official website
+# Note: the docs will build without this theme package present,
+# but it is preferred that it be used over the stock 'default'
+# theme due to the enhancements regarding whitespace
+sphinx-better-theme
