@@ -14,6 +14,19 @@
 import os
 import sys
 
+
+# Attempt to import our desired theme. If successful, then we will use that
+# theme to build the docs. If the import attempt fails, we will use the
+# default theme instead.
+try:
+    from better import better_theme_path
+    html_theme_path = [better_theme_path]
+    desired_theme_available = True
+
+except ImportError:
+    desired_theme_available = False
+
+
 # Module for our custom functions. Used with automating automating build info.
 sys.path.append(os.getcwd())
 import conf_helpers
@@ -212,14 +225,35 @@ suppress_warnings = ['epub.unknown_project_files']
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+
+# The theme used for building was set earlier based on the results of an
+# import attempt. If the import was successful, our desired theme will be
+# used. If the import failed, the 'default' theme will be used instead.
+# This works around the possibility that our users will fail to read
+# the direction to run `pip install -r requirements.txt` and will instead
+# just install the sphinx package directly (either via pip install sphinx
+# or via their distro packaging system).
+if desired_theme_available:
+    html_theme = 'better'
+else:
+    html_theme = 'default'
+
+#html_theme = 'default'
 #html_theme = 'basic'
 #html_style = 'rsyslog.css'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {}
+if html_theme == 'better':
+    # Enable max width for our chosen theme only
+    html_theme_options = {
+    'inlinecss': ' @media (max-width: 820px) { div.sphinxsidebar { visibility: hidden; } }',
+    }
+
+else:
+    # If our chosen theme is not present, reset the options dictionary
+    html_theme_options = {}
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
