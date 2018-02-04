@@ -1,3 +1,20 @@
+<!-- TOC START min:1 max:3 link:true update:true -->
+- [rsyslog-docs](#rsyslog-docs)
+  - [Documentation for the rsyslog project](#documentation-for-the-rsyslog-project)
+  - [Learning the doc tools](#learning-the-doc-tools)
+  - [Contributed Software/Content](#contributed-softwarecontent)
+  - [Dev Team resources](#dev-team-resources)
+  - [Contributing to the docs](#contributing-to-the-docs)
+  - [Requesting feedback/help](#requesting-feedbackhelp)
+  - [Building the documentation](#building-the-documentation)
+    - [Assumptions](#assumptions)
+    - [Prep environment](#prep-environment)
+    - [Generate documentation](#generate-documentation)
+
+<!-- TOC END -->
+
+
+
 # rsyslog-docs
 
 ## Documentation for the rsyslog project

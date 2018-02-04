@@ -1,3 +1,17 @@
+<!-- TOC START min:1 max:3 link:true update:true -->
+- [rsyslog-doc builds: A guide to building the rsyslog documentation for maintainers and contributors](#rsyslog-doc-builds-a-guide-to-building-the-rsyslog-documentation-for-maintainers-and-contributors)
+  - [Generating release version of the docs](#generating-release-version-of-the-docs)
+    - [Maintainer](#maintainer)
+    - [Contributors](#contributors)
+  - [Generating development builds](#generating-development-builds)
+    - [Obtain docs](#obtain-docs)
+    - [Build from GitHub download](#build-from-github-download-1)
+    - [Build from Git repo](#build-from-git-repo-1)
+
+<!-- TOC END -->
+
+
+
 # rsyslog-doc builds: A guide to building the rsyslog documentation for maintainers and contributors
 
 *Documentation for building the documentation for ...*
