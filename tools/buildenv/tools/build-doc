@@ -16,7 +16,7 @@ fi
 cd /rsyslog-doc
 echo sphinx-build "$STRICT" -b "$FORMAT" "$SPHINX_EXTRA_OPTS" source "$OUTPUT"
 
-sphinx-build "$STRICT" -b "$FORMAT" "$SPHINX_EXTRA_OPTS" source "$OUTPUT" -v -v -v
+sphinx-build $STRICT -b $FORMAT $SPHINX_EXTRA_OPTS source $OUTPUT -v -v -v
 
 ls
 pwd
