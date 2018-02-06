@@ -175,7 +175,7 @@ export DOC_HOME="$PWD"
 sudo docker run -ti --rm \
         -u `id -u`:`id -g` \
         -e STRICT="" \
-        -e SPHINX_EXTRA_OPTS="\"$sphinx_extra_options\" \"$sphinx_build_overrides\"" \
+        -e SPHINX_EXTRA_OPTS=\"$sphinx_extra_options\" \"$sphinx_build_overrides\" \
         -v "$DOC_HOME":/rsyslog-doc \
         $docker_image || {
 	echo "sphinx-build failed... aborting"
