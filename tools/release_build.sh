@@ -91,8 +91,8 @@ sphinx_build_conf_prod="source/conf.py"
 # the Docker container for use during doc builds. We pass these
 # values in to override the default theme choice/options with settings
 # intended for use on rsyslog.com/doc/
-#sphinx_build_overrides="-D html_theme=\'$sphinx_html_theme\' -D html_theme_path=\'$sphinx_html_theme_path\' -D html_theme_options.inlinecss=\'$sphinx_html_theme_options\'"
-sphinx_build_overrides='-D html_theme="better" -D html_theme_path="/usr/lib/local/python2.7/site-packages,/usr/local/python2.7/dist-packages" -D html_theme_options.inlinecss="@media (max-width: 820px) { div.sphinxsidebar { visibility: hidden; } }"'
+#sphinx_build_overrides='-D html_theme="better" -D html_theme_path="/usr/lib/local/python2.7/site-packages,/usr/local/python2.7/dist-packages" -D html_theme_options.inlinecss="@media (max-width: 820px) { div.sphinxsidebar { visibility: hidden; } }"'
+sphinx_build_overrides='-D html_theme="better" -D html_theme_path="/usr/lib/local/python2.7/site-packages,/usr/local/python2.7/dist-packages"'
 
 
 
