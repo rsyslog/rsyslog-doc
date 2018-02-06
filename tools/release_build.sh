@@ -87,6 +87,15 @@ docfile=rsyslog-doc-${release}.tar.gz
 # of a Git repo (e.g., no ".git" directory present).
 sphinx_build_conf_prod="source/conf.py"
 
+# This is the set of sphinx-build override options that will be passed into
+# the Docker container for use during doc builds. We pass these
+# values in to override the default theme choice/options with settings
+# intended for use on rsyslog.com/doc/
+#sphinx_build_overrides="-D html_theme=\'$sphinx_html_theme\' -D html_theme_path=\'$sphinx_html_theme_path\' -D html_theme_options.inlinecss=\'$sphinx_html_theme_options\'"
+sphinx_build_overrides="-D html_theme=\"better\" -D html_theme_path=\"/usr/local/python2.7/dist-packages,/usr/local/python2.7/dist-packages\" -D html_theme_options.inlinecss=\"@media (max-width: 820px) { div.sphinxsidebar { visibility: hidden; } }\""
+
+
+
 # Which docker image should be used for the build?
 # https://hub.docker.com/r/rsyslog/rsyslog_doc_gen/
 docker_image="deoren/rsyslog_doc_gen:i536"
@@ -166,9 +175,9 @@ export DOC_HOME="$PWD"
 sudo docker run -ti --rm \
         -u `id -u`:`id -g` \
         -e STRICT="" \
-        -e SPHINX_EXTRA_OPTS="$sphinx_extra_options" \
+        -e SPHINX_EXTRA_OPTS="$sphinx_extra_options $sphinx_build_overrides" \
         -v "$DOC_HOME":/rsyslog-doc \
-        $docker_image build-website-doc || {
+        $docker_image build-doc || {
 	echo "sphinx-build failed... aborting"
 	exit 1
 }
