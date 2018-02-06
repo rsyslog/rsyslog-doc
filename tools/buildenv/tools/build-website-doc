@@ -1,0 +1,35 @@
+if [ ! -e /rsyslog-doc/source ]; then
+	if [ -e /output ]; then
+		source tools/git-clone
+	else
+		echo "ERROR: /rsyslog-doc is either not mounted or does not point to correct path"
+		echo "       and /output is also not present, so we do not know what to do"
+		source tools/help
+		exit 1
+	fi
+fi
+if [ -e /output ]; then
+	export OUTPUT=/output
+else
+	export OUTPUT=build
+fi
+
+cd /rsyslog-doc
+
+# Current theme used by rsyslog.com site. Hard-coding here as attempts to
+# pass in properly quoted values via environment variables
+# (specifically the CSS bit) have failed
+sphinx-build \
+    $STRICT \
+    -D html_theme="better" \
+    -D html_theme_path="/usr/lib/python2.7/site-packages,/usr/local/python2.7/dist-packages" \
+    -D html_theme_options.inlinecss="@media (max-width: 820px) { div.sphinxsidebar { visibility: hidden; } }" \
+    -b $FORMAT \
+    $SPHINX_EXTRA_OPTS \
+    source $OUTPUT
+
+RESULT=$?
+# we need to do the chown as we currently cannot select the right user
+# inside the Dockerfile. Once this is solved, this can go away.
+# chown -R rsyslog:rsyslog $OUTPUT - need to do this differently...
+exit $RESULT
