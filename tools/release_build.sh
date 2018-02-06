@@ -92,7 +92,7 @@ sphinx_build_conf_prod="source/conf.py"
 # values in to override the default theme choice/options with settings
 # intended for use on rsyslog.com/doc/
 #sphinx_build_overrides="-D html_theme=\'$sphinx_html_theme\' -D html_theme_path=\'$sphinx_html_theme_path\' -D html_theme_options.inlinecss=\'$sphinx_html_theme_options\'"
-sphinx_build_overrides='-D html_theme="better" -D html_theme_path="/usr/liblocal/python2.7/site-packages,/usr/local/python2.7/dist-packages" -D html_theme_options.inlinecss="@media (max-width: 820px) { div.sphinxsidebar { visibility: hidden; } }"'
+sphinx_build_overrides='-D html_theme="better" -D html_theme_path="/usr/lib/local/python2.7/site-packages,/usr/local/python2.7/dist-packages" -D html_theme_options.inlinecss="@media (max-width: 820px) { div.sphinxsidebar { visibility: hidden; } }"'
 
 
 
@@ -177,7 +177,7 @@ sudo docker run -ti --rm \
         -e STRICT="" \
         -e SPHINX_EXTRA_OPTS="$sphinx_extra_options $sphinx_build_overrides" \
         -v "$DOC_HOME":/rsyslog-doc \
-        $docker_image build-doc || {
+        $docker_image || {
 	echo "sphinx-build failed... aborting"
 	exit 1
 }
