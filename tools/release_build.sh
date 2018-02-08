@@ -13,7 +13,10 @@ echo <<DISCLAIMER "
 
 #######################################################################
 #                                                                     #
-# Purpose: Create an official rsyslog docs release tarball            #
+# Purpose: Create official rsyslog docs release build:                #
+#                                                                     #
+#   * tarball (ready for use by downstream users)                     #
+#   * fresh v8-stable HTML format with stable release string          #
 #                                                                     #
 # Before proceeding, please confirm that you have performed the       #
 # following steps:                                                    #
@@ -21,15 +24,8 @@ echo <<DISCLAIMER "
 # 1. Manually fetched, merged and tagged the changes to the stable    #
 #    branch that are intended to reflect the latest release.          #
 #                                                                     #
-# 2. Checkout the latest tag (or stable branch)                       #
-#                                                                     #
-# 3. Remove uncommitted files to help prevent them from being         #
-#    included in the release tarball                                  #
-#                                                                     #
-# These steps can be automated, but have been left as-is for this     #
-# version of the release script. If desired, a future version of      #
-# the script can be enhanced to include this functionality.           #
-#                                                                     #
+# 2. Saved all uncommitted files to help prevent their loss as part   #
+#    of the cleanup performed between builds.                         #
 #                                                                     #
 #             PRESS ENTER TO CONTINUE OR CTRL+C TO CANCEL             #
 #                                                                     #
@@ -57,9 +53,23 @@ get_release_version() {
 }
 
 
+# Reset build environment so that the next build starts from a clean state
+reset_build_env() {
+
+    branch=$1
+
+    rm -rf build
+    git reset --hard
+    git checkout -f $branch
+
+}
+
+
 #####################################################################
 # Setup
 #####################################################################
+
+stable_branch="v8-stable"
 
 # The latest stable tag, but without the leading 'v'
 # Format: X.Y.Z
@@ -72,14 +82,26 @@ version=$(echo $release | sed 's/.0//')
 # Use the full version number
 docfile=rsyslog-doc-${release}.tar.gz
 
-# Hard-code html format for now since that is the only format
-# officially provided
-format="html"
-
 # The build conf used to generate release output files. Included
 # in the release tarball and needs to function as-is outside
 # of a Git repo (e.g., no ".git" directory present).
 sphinx_build_conf_prod="source/conf.py"
+
+# This is the set of sphinx-build override options that will be passed into
+# the Docker container for use during doc builds. We pass these
+# values in to override the default theme choice/options with settings
+# intended for use on rsyslog.com/doc/
+#sphinx_build_overrides='-D html_theme="better" -D html_theme_path="/usr/lib/local/python2.7/site-packages,/usr/local/python2.7/dist-packages" -D html_theme_options.inlinecss="@media (max-width: 820px) { div.sphinxsidebar { visibility: hidden; } }"'
+#sphinx_build_overrides="-D html_theme=classic"
+
+
+
+# Which docker image should be used for the build?
+# https://hub.docker.com/r/rsyslog/rsyslog_doc_gen/
+docker_image="deoren/rsyslog_doc_gen:i536"
+
+# What additional options should be used for the build?
+sphinx_extra_options="-q -D html_theme=classic"
 
 
 #####################################################################
@@ -91,6 +113,16 @@ sphinx_build_conf_prod="source/conf.py"
     echo "    Run $0 again from a clone of the rsyslog-doc repo."
     exit 1
 }
+
+
+#####################################################################
+# Cleanup from last build, prep for new one
+#####################################################################
+
+reset_build_env $stable_branch
+
+# Pull in the latest tagsin order to calculate the latest stable version
+git pull --tags
 
 
 #####################################################################
@@ -133,14 +165,22 @@ sed -r -i "s/^release.*$/release = \'${release}\'/" ./${sphinx_build_conf_prod} 
 
 
 #####################################################################
-# Build HTML format
+# Build stable release HTML format using reference docker image
 #####################################################################
 
-sphinx-build -b $format source build || {
+echo "======starting doc generation======="
+sudo docker pull $docker_image # get fresh version
+export DOC_HOME="$PWD"
+
+sudo docker run -ti --rm \
+        -u `id -u`:`id -g` \
+        -e STRICT="" \
+        -e SPHINX_EXTRA_OPTS="\"$sphinx_extra_options\"" \
+        -v "$DOC_HOME":/rsyslog-doc \
+        $docker_image || {
 	echo "sphinx-build failed... aborting"
 	exit 1
 }
-
 
 #####################################################################
 # Create dist tarball
