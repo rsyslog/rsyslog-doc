@@ -141,7 +141,7 @@ Note: parameter names are case-insensitive.
    is to prevent excessive resource use for retries. After each 10
    retries, the interval is extended by itself. To be precise, the
    actual interval is (numRetries / 10 + 1) \* Action.ResumeInterval. so
-   after the 10th try, it by default is 60 and after the 100th try it is
+   after the 10th try, it by default is 30 and after the 100th try it is
    330.
 
 - **action.reportSuspension** on/off
