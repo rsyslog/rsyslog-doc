@@ -80,10 +80,10 @@ def get_current_commit_hash():
 
     # e.g., v8.29.0-98-g07d02c6 (after decoding)
     # https://stackoverflow.com/questions/2502833/store-output-of-subprocess-popen-call-in-a-string
-    git_describe_output = subprocess.check_output(['git', 'describe']).decode("utf-8")
+    #git_describe_output = subprocess.check_output(['git', 'describe']).decode("utf-8")
 
     # Grab the last portion of the strings, then strip off leading 'g'
-    commit_hash = git_describe_output.split('-')[-1][1:].strip()
+    commit_hash = "master" # git_describe_output.split('-')[-1][1:].strip()
 
     return commit_hash
 

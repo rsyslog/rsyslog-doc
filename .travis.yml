@@ -6,6 +6,12 @@ install:
   - docker pull rsyslog/rsyslog_doc_gen
 
 script:
+  - git log -4
+  - git --version
+  - git describe ; true
+  - git describe HEAD~1 ; true
+  - git describe HEAD~2 ; true
+  - git describe HEAD~3 ; true
   - docker run -e SPHINX_EXTRA_OPTS=-q
         -v "$PWD":/rsyslog-doc -ti
         rsyslog/rsyslog_doc_gen
