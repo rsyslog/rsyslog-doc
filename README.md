@@ -1,3 +1,4 @@
+REMOVE THIS LINE - TEST ONLY
 # rsyslog-docs
 
 ## Documentation for the rsyslog project
