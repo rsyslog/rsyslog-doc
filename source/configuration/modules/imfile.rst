@@ -583,6 +583,23 @@ Upon truncation an error is given. When this parameter is turned off, no
 error will be shown upon truncation.
 
 
+oversizeMessageMode
+^^^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "word", "accept", "no", "none"
+
+.. versionadded:: 8.35.0
+
+This parameter configures how oversized messages will be handled.
+
+- accept: Messages will be accepted even if they are too large.
+- truncate: Messages will be truncated at the maximal message size.
+
 
 .. _Metadata:
 
