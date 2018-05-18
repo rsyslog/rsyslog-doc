@@ -66,6 +66,34 @@ Note: parameter names are case-insensitive.
    message properties. You can place them under a subtree, instead. You
    can place them in local variables, also, by setting path="$.".
 
+.. function:: variable <word>
+
+   **Default**: NULL
+
+   *(Available since: 8.?.?)*
+
+   Specifies if a variable instead of property 'msg' should be used for
+   json parsing. A varible can be property, local variable, json-path etc.
+   Please note that **useRawMsg** overrides this parameter, so if **useRawMsg**
+
+.. function:: alt_variable <word>
+
+   **Default**: NULL
+
+   *(Available since: 8.?.?)*
+
+   Specifies a JSON key name to keep the original value of ``variable``.  
+   If ``variable`` is not set, ``alt_variable`` is ignored.  
+
+.. function:: compact <boolean>
+
+   **Default**: off
+
+   *(Available since: 8.?.?)*
+
+   Specifies if the JSON to be parsed contains empty string, array or JSON type object, eliminate it (on)
+   or no-op (off).
+
 Check parsing result
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -93,6 +121,34 @@ This activates the module and applies normalization to all messages::
 To permit parsing messages without cookie, use this action statement::
 
   action(type="mmjsonparse" cookie="")
+
+To merge the string type value of "log" into the top level JSON as shown in the input/output example, use this action statement::
+
+  action(type="mmjsonparse" cookie="" variable="$!log")
+
+  input
+  {"log":"{\"message\":\"Log message\",\"log_level\":\"INFO\"}","time":"2020-05-03T17:43:26.653959-06:00"}
+  output
+  {"message":"Log message","log_level":"INFO"}
+
+To merge the string type value of "log" into the top level JSON with keeping the original string type JSON 
+with the key "original_raw_json" as shown in the input/output example, use this action statement::
+
+  action(type="mmjsonparse" cookie="" variable="$!log" alt_variable="original_raw_json")
+
+  input
+  {"log":"{\"message\":\"Log message\",\"log_level\":\"INFO\"}","time":"2020-05-03T17:43:26.653959-06:00"}
+  output
+  {"message":"Log message","log_level":"INFO", "original_raw_json":"{\"message\":\"Log message\",\"log_level\":\"INFO\"}"}
+
+To eliminate the empty string, array or JSON type object as sown in the input/output example, use this action statement::
+
+  action(type="mmjsonparse" compact=on)
+
+  input
+  {"message":"Log message","field0":"","field1":[],"field2":{}}
+  output
+  {"message":"Log message"}
 
 The same in legacy format::
 
