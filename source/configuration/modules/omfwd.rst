@@ -194,7 +194,7 @@ Action Parameters
    Please note that busy systems probably loose more than a
    single message in such cases. This is caused by an
    `inherant unreliability in plain tcp syslog
-   <http://blog.gerhards.net/2008/04/on-unreliability-of-plain-tcp-syslog.html>`_
+   <https://rainer.gerhards.net/2008/04/on-unreliability-of-plain-tcp-syslog.html>`_
    and there is no way rsyslog could prevent this from happening
    (if you read the detail description, be sure to follow the link
    to the follow-up posting). In order to prevent these problems,
@@ -276,6 +276,6 @@ TCP port 10514.
 This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
 project.
 Copyright © 2008-2014 by `Rainer
-Gerhards <http://www.gerhards.net/rainer>`_ and
+Gerhards <https://rainer.gerhards.net/>`_ and
 `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL version
 3 or higher.

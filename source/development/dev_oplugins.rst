@@ -374,7 +374,7 @@ course we are happy if you do).
 Copyright
 ---------
 
-Copyright (c) 2009 `Rainer Gerhards <http://www.gerhards.net/rainer>`_
+Copyright (c) 2009 `Rainer Gerhards <https://rainer.gerhards.net/>`_
 and `Adiscon <http://www.adiscon.com/en/>`_.
 
 Permission is granted to copy, distribute and/or modify this document

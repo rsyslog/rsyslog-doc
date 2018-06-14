@@ -231,6 +231,6 @@ See Also
 This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
 project.
 Copyright © 2008-2014 by `Rainer
-Gerhards <http://www.gerhards.net/rainer>`_ and
+Gerhards <https://rainer.gerhards.net/>`_ and
 `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL version
 3 or higher.

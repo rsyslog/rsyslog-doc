@@ -3,7 +3,7 @@
 Message parsers in rsyslog
 ==========================
 
-Written by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
+Written by `Rainer Gerhards <https://rainer.gerhards.net/>`_
 (2009-11-06)
 
 Intro

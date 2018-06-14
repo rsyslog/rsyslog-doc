@@ -70,5 +70,5 @@ Related Links
 .. [3] `Professional rsyslog Support <http://www.rsyslog.com/professional-services>`_
 .. [4] `Regular expression checker/generator tool for rsyslog <http://www.rsyslog.com/tool-regex>`_
 .. [5] `Rainer's twitter feed <http://twitter.com/rgerhards>`_
-.. [6] `Rainer's Blog <http://blog.gerhards.net/>`_
+.. [6] `Rainer's Blog <https://rainer.gerhards.net/>`_
 

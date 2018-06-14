@@ -1,7 +1,7 @@
 Encrypting Syslog Traffic with TLS (SSL) [short version]
 ========================================================
 
-*Written by* `Rainer Gerhards  <http://www.gerhards.net/rainer>`_
+*Written by* `Rainer Gerhards  <https://rainer.gerhards.net/>`_
 *(2008-05-06)*
 
 Abstract

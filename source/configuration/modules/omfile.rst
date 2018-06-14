@@ -3,7 +3,7 @@ omfile: File Output Module
 
 ===========================  ===========================================================================
 **Module Name:**             **omfile**
-**Author:**                  `Rainer Gerhards <http://www.gerhards.net/rainer>`_ <rgerhards@adiscon.com>
+**Author:**                  `Rainer Gerhards <https://rainer.gerhards.net/>`_ <rgerhards@adiscon.com>
 ===========================  ===========================================================================
 
 The omfile plug-in provides the core functionality of writing messages
@@ -503,6 +503,6 @@ The following command writes all syslog messages into a file.
 This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
 project.
 Copyright © 2008-2014 by `Rainer
-Gerhards <http://www.gerhards.net/rainer>`_ and
+Gerhards <https://rainer.gerhards.net/>`_ and
 `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL version
 3 or higher.

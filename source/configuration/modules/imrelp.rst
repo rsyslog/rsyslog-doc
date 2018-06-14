@@ -132,6 +132,6 @@ This sets up a RELP server on port 20514.
 This documentation is part of the
 `rsyslog <http://www.rsyslog.com/>`__ project.
 Copyright © 2008-2014 by `Rainer
-Gerhards <http://www.gerhards.net/rainer>`__ and
+Gerhards <https://rainer.gerhards.net/>`__ and
 `Adiscon <http://www.adiscon.com/>`__. Released under the GNU GPL
 version 3 or higher.
