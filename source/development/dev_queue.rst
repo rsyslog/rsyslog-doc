@@ -302,7 +302,7 @@ After that point, left over queue resources (mutexes, dynamic memory,
 Copyright
 ~~~~~~~~~
 
-Copyright (c) 2008-2014 `Rainer Gerhards <http://www.gerhards.net/rainer>`_
+Copyright (c) 2008-2014 `Rainer Gerhards <https://rainer.gerhards.net/>`_
 and `Adiscon <http://www.adiscon.com/en/>`_.
 
 Permission is granted to copy, distribute and/or modify this document

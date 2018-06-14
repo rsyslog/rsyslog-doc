@@ -154,6 +154,6 @@ Note: to use IPv6 addresses, encode them in [::1] format.
 This documentation is part of the
 `rsyslog <http://www.rsyslog.com/>`__ project.
 Copyright (C) 2008-2014 by `Rainer
-Gerhards <http://www.gerhards.net/rainer>`__ and
+Gerhards <https://rainer.gerhards.net/>`__ and
 `Adiscon <http://www.adiscon.com/>`__. Released under the GNU GPL
 version 3 or higher.

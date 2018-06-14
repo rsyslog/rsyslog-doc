@@ -5,7 +5,7 @@ imudp: UDP Syslog Input Module
 
 ===========================  ===========================================================================
 **Module Name:**             **imudp**
-**Author:**                  `Rainer Gerhards <http://www.gerhards.net/rainer>`_ <rgerhards@adiscon.com>
+**Author:**                  `Rainer Gerhards <https://rainer.gerhards.net/>`_ <rgerhards@adiscon.com>
 ===========================  ===========================================================================
 
 Provides the ability to receive syslog messages via UDP.
@@ -308,6 +308,6 @@ This sets up an UPD server on port 514:
 
 This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
 project.
-Copyright © 2009-2014 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
+Copyright © 2009-2014 by `Rainer Gerhards <https://rainer.gerhards.net/>`_
 and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
 version 3 or higher.

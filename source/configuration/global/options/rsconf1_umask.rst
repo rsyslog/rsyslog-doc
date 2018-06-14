@@ -26,6 +26,6 @@ This sample removes all restrictions.
 This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
 project.
 
-Copyright © 2007-2014 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
+Copyright © 2007-2014 by `Rainer Gerhards <https://rainer.gerhards.net/>`_
 and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
 version 2 or higher.

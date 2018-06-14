@@ -1,7 +1,7 @@
 syslog parsing in rsyslog
 =========================
 
-*Written by* `Rainer Gerhards <http://www.gerhards.net/rainer>`_
+*Written by* `Rainer Gerhards <https://rainer.gerhards.net/>`_
 *(2008-09-23)*
 
 **We regularly receive messages asking why**

@@ -5,7 +5,7 @@ imfile: Text File Input Module
 
 ===========================  ===========================================================================
 **Module Name:**             **imfile**
-**Author:**                  `Rainer Gerhards <http://www.gerhards.net/rainer>`_ <rgerhards@adiscon.com>
+**Author:**                  `Rainer Gerhards <https://rainer.gerhards.net/>`_ <rgerhards@adiscon.com>
 ===========================  ===========================================================================
 
 This modul provides the ability to convert any standard text file
