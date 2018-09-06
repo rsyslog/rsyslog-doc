@@ -1,7 +1,7 @@
 $Escape8BitCharactersOnReceive
 ------------------------------
 
-**Type:** global configuration directive
+**Type:** global configuration parameter
 
 **Default:** off
 
@@ -9,7 +9,7 @@ $Escape8BitCharactersOnReceive
 
 **Description:**
 
-This directive instructs rsyslogd to replace non US-ASCII characters
+This parameter instructs rsyslogd to replace non US-ASCII characters
 (those that have the 8th bit set) during reception of the message. This
 may be useful for some systems. Please note that this escaping breaks
 Unicode and many other encodings. Most importantly, it can be assumed
@@ -37,8 +37,3 @@ $ControlCharacterEscapePrefix character (being '#' by default).
 
 ``$Escape8BitCharactersOnReceive on``
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2010 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 3 or higher.

@@ -4,8 +4,8 @@ Turning Lanes and Rsyslog Queues
 If there is a single object absolutely vital to understanding the way
 rsyslog works, this object is queues. Queues offer a variety of
 services, including support for multithreading. While there is elaborate
-in-depth documentation on the ins and outs of `rsyslog
-queues <queues.html>`_, some of the concepts are hard to grasp even for
+in-depth documentation on the ins and outs of :doc:`rsyslog queues
+<../concepts/queues>`, some of the concepts are hard to grasp even for
 experienced people. I think this is because rsyslog uses a very high
 layer of abstraction which includes things that look quite unnatural,
 like queues that do **not** actually queue...
@@ -30,8 +30,8 @@ tutorial <http://www.rsyslog.com/Article350.phtml>`_ available on the
 data flow. It is not perfect, but may aid in understanding this picture.
 
 For our needs, the important fact to know is that messages enter rsyslog
-on "the left side" (for example, via UDP), are being preprocessed, put
-into the so-called main queue, taken off that queue, be filtered and be
+on "the left side" (for example, via UDP), are preprocessed, put
+into the so-called main queue, taken off that queue, filtered and are
 placed into one or several action queues (depending on filter results).
 They leave rsyslog on "the right side" where output modules (like the
 file or database writer) consume them.
@@ -88,7 +88,7 @@ only "handle" (display or process) what is sent to them.
 
 Now let's look at the action queues: here, the active part, the
 producer, is the Parser and Filter Engine. The passive part is the
-Action Processor. The later does any processing that is necessary to
+Action Processor. The latter does any processing that is necessary to
 call the output plugin, in particular it processes the template to
 create the plugin calling parameters (either a string or vector of
 arguments). From the action queue's point of view, Action Processor and
@@ -163,7 +163,7 @@ lanes.** We assume that cars all have the same length. So, units of
 cars, the length is always one (which is nice, as we don't need to care
 about that factor any longer ;)). A turning lane has finite capacity of
 *n* cars. As long as the number of cars wanting to take a turn is less
-than or eqal to *n*, "straigth traffic" is not blocked (or the other way
+than or equal to *n*, "straight traffic" is not blocked (or the other way
 round, traffic is blocked if at least *n + 1* cars want to take a
 turn!). We can now find an optimal value for *n*: it is a function of
 the probability that a car wants to turn and the cost of the turning
@@ -310,12 +310,12 @@ running in rsyslog at a given time (assuming again that inputs utilize
 only one thread per plugin, a not-so-safe assumption).
 
 A quick side-note: I gave the lower bound for *t\_m* as zero, which is
-somewhat in contrast to what I wrote at the begin of the last paragraph.
+somewhat in contrast to what I wrote at the beginning of the last paragraph.
 Zero is actually correct, because rsyslog stops all worker threads when
 there is no work to do. This is also true for the action queues. So the
 ultimate lower bound for a rsyslog output system without any work to
 carry out actually is zero. But this bound will never be reached when
-there is continuous flow of activity. And, if you are curios: if the
+there is continuous flow of activity. And, if you are curious: if the
 number of workers is zero, the worker wakeup process is actually handled
 within the threading context of the "left-hand-side" (or producer) of
 the queue. After being started, the worker begins to play the active
@@ -359,7 +359,6 @@ to the threading model. Transitioning between actual disk-assisted mode
 and pure-in-memory-mode (which is done automatically when needed) is
 also far from trivial and a real joy for an implementer to work on ;).
 
-If you have not done so before, it may be worth reading the `rsyslog
-queue user's guide, <queues.html>`_ which most importantly lists all the
-knobs you can turn to tweak queue operation.
-
+If you have not done so before, it may be worth reading
+:doc:`Understanding rsyslog Queues <../concepts/queues>`, which most
+importantly lists all the knobs you can turn to tweak queue operation.

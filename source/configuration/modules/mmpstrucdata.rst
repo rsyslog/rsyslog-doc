@@ -10,10 +10,12 @@ RFC5424 structured data parsing module (mmpstrucdata)
 **Description**:
 
 The mmpstrucdata parses the structured data of `RFC5424 <https://tools.ietf.org/html/rfc5424>`_ into the message json variable tree. The data parsed, if available, is stored under "jsonRoot!rfc5424-sd!...". Please note that only RFC5424 messages will be processed.
- 
-The difference of RFC5424 is in the message layout: the SYSLOG-MSG part only contains the structured-data part instead of the normal message part. Further down you can find a example of a structured-data part. 
+
+The difference of RFC5424 is in the message layout: the SYSLOG-MSG part only contains the structured-data part instead of the normal message part. Further down you can find a example of a structured-data part.
 
 **Module Configuration Parameters**:
+
+Note: parameter names are case-insensitive.
 
 Currently none.
 
@@ -21,8 +23,19 @@ Currently none.
 
 **Action Confguration Parameters**:
 
+Note: parameter names are case-insensitive.
+
 -  **jsonRoot** - default "!"
     Specifies into which json container the data shall be parsed to.
+
+-  **sd_name.lowercase** - default "on"
+
+    Available: rsyslog 8.32.0 and above
+
+    Specifies if sd names (SDID) shall be lowercased. If set to "on", this
+    is the case, if "off" than not. The default of "on" is used because that
+    was the traditional mode of operations. It it generally advised to
+    change the parameter to "off" if not otherwise required.
 
 **See Also**
 
@@ -41,7 +54,7 @@ Currently none.
 
 **Samples:**
 
-Below you can find a structured data part of a random message which has three parameters. 
+Below you can find a structured data part of a random message which has three parameters.
 
 ::
 
@@ -86,8 +99,3 @@ As you can seem, you can address each of the individual items. Note that
 the case of the RFC5424 parameter names has been converted to lower
 case.
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2013 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 3 or higher.

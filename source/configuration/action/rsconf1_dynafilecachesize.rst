@@ -1,13 +1,13 @@
 $DynaFileCacheSize
 ------------------
 
-**Type:** global configuration directive
+**Type:** global configuration parameter
 
 **Default:** 10
 
 **Description:**
 
-This directive specifies the maximum size of the cache for
+This parameter specifies the maximum size of the cache for
 dynamically-generated file names. Selector lines with dynamic files
 names ('?' indicator) support writing to multiple files with a single
 selector line. This setting specifies how many open file handles should
@@ -26,15 +26,10 @@ is 1.
 
 Numbers are always in decimal. Leading zeros should be avoided (in some
 later version, they may be mis-interpreted as being octal). Multiple
-directives may be given. They are applied to selector lines based on
+parameters may be given. They are applied to selector lines based on
 order of appearance.
 
 **Sample:**
 
 ``$DynaFileCacheSize 100    # a cache of 100 files at most``
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2007 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 2 or higher.

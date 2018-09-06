@@ -1,7 +1,7 @@
 Parser
 ======
 
-.. index:: ! parser 
+.. index:: ! parser
 .. _cfgobj_input:
 
 The ``parser`` object, as its name suggests, describes message parsers.
@@ -17,7 +17,7 @@ be defined using the parser() object. A parser name defined via the
 parser() object can be used whereever a parser name can occur.
 
 Note that not all message parser modules are supported in the parser()
-object. The reason is that many do not have any user-selectable 
+object. The reason is that many do not have any user-selectable
 parameters and as such, there is no point in issuing a parser() object
 for them.
 
@@ -32,6 +32,8 @@ The parser object has different parameters:
 
 General Parser Parameters
 -------------------------
+
+Note: parameter names are case-insensitive.
 
 .. function::  name <name-string>
 
@@ -49,7 +51,7 @@ General Parser Parameters
    The ``<type-string>`` is a string identifying the parser module as given
    it each module's documentation. Do not mistake the parser module name
    with its default parser name.
-   For example, the 
+   For example, the
    :doc:`Cisco IOS message parser module <modules/pmciscoios>` parser module
    name is "pmciscoios", whereas it's default parser name is
    "rsyslog.pmciscoios".
@@ -60,7 +62,7 @@ The following example creates a custom parser definition and uses it within a ru
 
 ::
 
-  load(module="pmciscoios")
+  module(load="pmciscoios")
   parser(name="custom.pmciscoios.with_origin" type="pmciscoios")
 
   ruleset(name="myRuleset" parser="custom.pmciscoios.with_origin") {
@@ -71,9 +73,9 @@ The following example uses multiple parsers within a ruleset without a parser ob
 
 ::
 
-  load(module="pmaixforwardedfrom")
-  load(module="pmlastmsg")
-  
+  module(load="pmaixforwardedfrom")
+  module(load="pmlastmsg")
+
   ruleset(name="myRuleset" parser=["rsyslog.lastline","rsyslog.aixforwardedfrom","rsyslog.rfc5424","rsyslog.rfc3164"]) {
      ... do something here ...
   }
@@ -83,8 +85,3 @@ The following example uses multiple parsers within a ruleset without a parser ob
 A more elaborate example can also be found in the
 :doc:`Cisco IOS message parser module <modules/pmciscoios>` documentation.
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2014 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_ and
-`Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL version
-2 or higher.

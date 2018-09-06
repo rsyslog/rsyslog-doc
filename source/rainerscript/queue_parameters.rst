@@ -13,14 +13,21 @@ ruleset has only the default main queue. Specific Action queues are not
 set up by default.
 
 To fully understand queue parameters and how they interact, be sure to
-read the :doc:`queues <../concepts/queues>` documentation.
+read the :doc:`queues <../concepts/queues>` documentation. Note:
+As with other configuration objects, parameters for this
+object are case-insensitive.
 
 -  **queue.filename** name
-   File name to be used for the queue files. Please note that this is
-   actually just the file name. A directory can NOT be specified in this
-   parameter. If the files shall be created in a specific directory,
-   specify queue.spoolDirectory for this. The filename is used to build
-   to complete path for queue files.
+   File name to be used for the queue files. If specified, this parameter
+   enables disk-assisted queue functionality. If *not* specified,
+   the queue will operate without saving the queue to disk, either
+   during its operation or when shut down. See the separate
+   ``queue.saveonshutdown`` parameter to configure that option.
+   Please note that this is actually just the file name. A directory
+   can NOT be specified in this parameter. If the files shall be
+   created in a specific directory, specify ``queue.spoolDirectory``
+   for this. The filename is used to build to complete path for queue
+   files.
 -  **queue.spoolDirectory** name
    This is the directory into which queue files will be stored. Note
    that the directory must exist, it is NOT automatically created by
@@ -33,6 +40,13 @@ read the :doc:`queues <../concepts/queues>` documentation.
    For more information on the current status of this restriction see
    the `rsyslog FAQ: "lower bound for queue
    sizes" <http://www.rsyslog.com/lower-bound-for-queue-sizes/>`_.
+
+   The default depends on queue type and rsyslog version, if you need
+   a specific value, please specify it. Otherwise rsyslog selects what
+   it consideres appropriate for the version in question. In rsyslog
+   rsyslog 8.30.0, for example, ruleset queues have a default size
+   of 50000 and action queues which are configured to be non-direct
+   have a size of 1000.
 -  **queue.dequeuebatchsize** number
    default 128
 -  **queue.maxdiskspace** number
@@ -46,35 +60,38 @@ read the :doc:`queues <../concepts/queues>` documentation.
    processing, because disk queue mode is very considerably slower than
    in-memory queue mode. Going to disk should be reserved for cases
    where an output action destination is offline for some period.
+   default 90% of queue size
 -  **queue.lowwatermark** number
-   default 2000
--  **queue.fulldelaymark** number 
-   Number of messages when the queue should block delayable messages. 
-   Messages are NO LONGER PROCESSED until the queue has sufficient space 
-   again. If a message is delayable depends on the input. For example, 
-   messages received via imtcp are delayable (because TCP can push back), 
+   default 70% of queue size
+-  **queue.fulldelaymark** number
+   Number of messages when the queue should block delayable messages.
+   Messages are NO LONGER PROCESSED until the queue has sufficient space
+   again. If a message is delayable depends on the input. For example,
+   messages received via imtcp are delayable (because TCP can push back),
    but those received via imudp are not (as UDP does not permit a push back).
-   The intent behind this setting is to leave some space in an almost-full 
-   queue for non-delayable messages, which would be lost if the queue runs 
-   out of space. Please note that if you use a DA queue, setting the 
-   fulldelaymark BELOW the highwatermark makes the queue never activate 
+   The intent behind this setting is to leave some space in an almost-full
+   queue for non-delayable messages, which would be lost if the queue runs
+   out of space. Please note that if you use a DA queue, setting the
+   fulldelaymark BELOW the highwatermark makes the queue never activate
    disk mode for delayable inputs. So this is probably not what you want.
+   default 97% of queue size
 -  **queue.lightdelaymark** number
+   default 70% of queue size
 -  **queue.discardmark** number
-   default 9750
+   default 80% of queue size
 -  **queue.discardseverity** number
    \*numerical\* severity! default 8 (nothing discarded)
 -  **queue.checkpointinterval** number
-   Disk queues by default do not update housekeeping structures every time 
-   the queue writes to disk. This is for performance reasons. In the event of failure, 
+   Disk queues by default do not update housekeeping structures every time
+   the queue writes to disk. This is for performance reasons. In the event of failure,
    data will still be lost (except when data is mangled via the file structures).
-   However, disk queues can be set to write bookkeeping information on checkpoints 
-   (every n records), so that this can be made ultra-reliable, too. If the 
-   checkpoint interval is set to one, no data can be lost, but the queue is 
+   However, disk queues can be set to write bookkeeping information on checkpoints
+   (every n records), so that this can be made ultra-reliable, too. If the
+   checkpoint interval is set to one, no data can be lost, but the queue is
    exceptionally slow.
 -  **queue.syncqueuefiles** on/off (default "off")
 
-   Disk-based queues can be made very reliable by issuing a (f)sync after each 
+   Disk-based queues can be made very reliable by issuing a (f)sync after each
    write operation. This happens when you set the parameter to "on".
    Activating this option has a performance penalty, so it should not
    be turned on without a good reason. Note that the penalty also depends on
@@ -90,7 +107,8 @@ read the :doc:`queues <../concepts/queues>` documentation.
 -  **queue.workerthreads** number
    number of worker threads, default 1, recommended 1
 -  **queue.timeoutshutdown** number
-   number is timeout in ms (1000ms is 1sec!), default 0 (indefinite)
+   number is timeout in ms (1000ms is 1sec!), 0 means immediately
+   default for action queues is 0, for rule set queues (including main queue) is 1500
 -  **queue.timeoutactioncompletion** number
    number is timeout in ms (1000ms is 1sec!), default 1000, 0 means
    immediate!
@@ -145,7 +163,7 @@ read the :doc:`queues <../concepts/queues>` documentation.
 -  **queue.timeoutworkerthreadshutdown** number
    number is timeout in ms (1000ms is 1sec!), default 60000 (1 minute)
 -  **queue.workerthreadminimummessages** number
-   default 100
+   default queue size/number of workers
 -  **queue.maxfilesize** size\_nbr
    default 1m
 -  **queue.saveonshutdown** on/\ **off**
@@ -168,8 +186,3 @@ The following is a sample of a TCP forwarding action with its own queue.
          queue.filename="forwarding" queue.size="1000000" queue.type="LinkedList"
         )
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2013-2014 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 3 or higher.

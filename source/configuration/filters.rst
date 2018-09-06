@@ -16,8 +16,11 @@ have been kept in rsyslog with their original syntax, because it is
 well-known, highly effective and also needed for compatibility with
 stock syslogd configuration files. If you just need to filter based on
 priority and facility, you should do this with selector lines. They are
-**not** second-class citizens in rsyslog and offer the best performance
-for this job.
+**not** second-class citizens in rsyslog and offer the simplest syntax
+for this job. In versions of rsyslog prior to v7 there were significant
+performance gains by using selector lines instead of the |FmtAdvancedName|
+format. There is no longer any difference in performance between the two
+formats.
 
 The selector field itself again consists of two parts, a facility and a
 priority, separated by a period (".''). Both parts are case insensitive
@@ -64,7 +67,7 @@ its use more intuitively. You may precede every priority with an equals
 sign ("='') to specify only this single priority and not any of the
 above. You may also (both is valid, too) precede the priority with an
 exclamation mark ("!'') to ignore all that priorities, either exact this
-one or this and any higher priority. If you use both extensions than the
+one or this and any higher priority. If you use both extensions then the
 exclamation mark must occur before the equals sign, just use it
 intuitively.
 
@@ -73,13 +76,11 @@ Property-Based Filters
 
 Property-based filters are unique to rsyslogd. They allow to filter on
 any property, like HOSTNAME, syslogtag and msg. A list of all
-currently-supported properties can be found in the `property replacer
-documentation <property_replacer.html>`_ (but keep in mind that only the
-properties, not the replacer is supported). With this filter, each
-properties can be checked against a specified value, using a specified
-compare operation.
+currently-supported properties can be found in the :doc:`rsyslog properties
+documentation <properties>`. With this filter, each property can be checked
+against a specified value, using a specified compare operation.
 
-A property-based filter must start with a colon **in column 0**. This tells
+A property-based filter must start with a colon **in column 1**. This tells
 rsyslogd that it is the new filter type. The colon must be followed by
 the property name, a comma, the name of the compare operation to carry
 out, another comma and then the value to compare against. This value
@@ -217,8 +218,8 @@ of a new line. They have this format:
   if expr then action-part-of-selector-line
 
 "if" and "then" are fixed keywords that mus be present. "expr" is a
-(potentially quite complex) expression. So the `expression
-documentation <../rainerscript/expressions.html>`_ for details.
+(potentially quite complex) expression. So the :doc:`expression
+documentation <../rainerscript/expressions>` for details.
 "action-part-of-selector-line" is an action, just as you know it (e.g.
 "/var/log/logfile" to write to that file).
 
@@ -292,8 +293,3 @@ support is added to the expression engine (the reason is that regular
 expressions will be a separate loadable module, which requires some more
 prequisites before it can be implemented).
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2008-2014 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 2 or higher.

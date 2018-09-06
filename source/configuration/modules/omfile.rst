@@ -1,10 +1,15 @@
+**************************
 omfile: File Output Module
-==========================
+**************************
 
 ===========================  ===========================================================================
 **Module Name:**             **omfile**
-**Author:**                  `Rainer Gerhards <http://www.gerhards.net/rainer>`_ <rgerhards@adiscon.com>
+**Author:**                  `Rainer Gerhards <https://rainer.gerhards.net/>`_ <rgerhards@adiscon.com>
 ===========================  ===========================================================================
+
+
+Purpose
+=======
 
 The omfile plug-in provides the core functionality of writing messages
 to files residing inside the local file system (which may actually be
@@ -12,21 +17,35 @@ remote if methods like NFS are used). Both files named with static names
 as well files with names based on message content are supported by this
 module.
 
+
+Notable Features
+================
+
+- :ref:`omfile-statistic-counter`
+
+
 Configuration Parameters
-------------------------
+========================
+
 Omfile is a built-in module that does not need to be loaded. In order to
 specify module parameters, use
 
-::
+.. code-block:: none
 
    module(load="builtin:omfile" ...parameters...)
 
-Note that legacy directives **do not** affect new-style RainerScript configuration
+
+Note that legacy parameters **do not** affect new-style RainerScript configuration
 objects. See :doc:`basic configuration structure doc <../basic_structure>` to
 learn about different configuration languages in use by rsyslog.
 
+.. note::
+
+   Parameter names are case-insensitive.
+
+
 General Notes
-^^^^^^^^^^^^^
+-------------
 
 As can be seen in the parameters below, owner and groups can be set either by
 name or by direct id (uid, gid). While using a name is more convenient, using
@@ -36,390 +55,720 @@ set to the process default. This seems to be uncommon and depends on the
 authentication provider and service start order. In general, using names
 is fine.
 
+
 Module Parameters
-^^^^^^^^^^^^^^^^^
+-----------------
 
-.. function::  template [templateName]
+Template
+^^^^^^^^
 
-   *Default: RSYSLOG_FileFormat*
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   Set the default template to be used if an action is not configured
-   to use a specific template.
+   "word", "RSYSLOG_FileFormat", "no", "``$ActionFileDefaultTemplate``"
 
-.. function::  dirCreateMode [octalNumber]
+Set the default template to be used if an action is not configured
+to use a specific template.
 
-   *Default: 0700*
 
-   Sets the default dirCreateMode to be used for an action if no
-   explicit one is specified.
+DirCreateMode
+^^^^^^^^^^^^^
 
-.. function::  fileCreateMode [default 0644] [octalNumber]
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   *Default: 0644*
+   "FileCreateMode", "0700", "no", "``$DirCreateMode``"
 
-   Sets the default fileCreateMode to be used for an action if no
-   explicit one is specified.
+Sets the default dirCreateMode to be used for an action if no
+explicit one is specified.
 
-.. function:: fileOwner [userName]
 
-   *Default: process user*
+FileCreateMode
+^^^^^^^^^^^^^^
 
-   Sets the default fileOwner to be used for an action if no
-   explicit one is specified.
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-.. function:: fileOwnerNum [uid]
+   "FileCreateMode", "0644", "no", "``$FileCreateMode``"
 
-   *Default: process user*
+Sets the default fileCreateMode to be used for an action if no
+explicit one is specified.
 
-   Sets the default fileOwnerNum to be used for an action if no
-   explicit one is specified.
 
-.. function:: fileGroup [groupName]
+fileOwner
+^^^^^^^^^
 
-   *Default: process user's primary group*
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   Sets the default fileGroup to be used for an action if no
-   explicit one is specified.
+   "UID", "process user", "no", "``$FileOwner``"
 
-.. function:: fileGroupNum [gid]
+Sets the default fileOwner to be used for an action if no
+explicit one is specified.
 
-   *Default: process user's primary group*
 
-   Sets the default fileGroupNum to be used for an action if no
-   explicit one is specified.
+fileOwnerNum
+^^^^^^^^^^^^
 
-.. function:: dirOwner [userName]
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   *Default: process user*
+   "integer", "process user", "no", "none"
 
-   Sets the default dirOwner to be used for an action if no
-   explicit one is specified.
+Sets the default fileOwnerNum to be used for an action if no
+explicit one is specified.
 
-.. function:: dirOwnerNum [uid]
 
-   *Default: process user*
+fileGroup
+^^^^^^^^^
 
-   Sets the default dirOwnerNum to be used for an action if no
-   explicit one is specified.
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-.. function:: dirGroup [groupName]
+   "GID", "process user's primary group", "no", "``$FileGroup``"
 
-   *Default: process user's primary group*
+Sets the default fileGroup to be used for an action if no
+explicit one is specified.
 
-   Sets the default dirGroup to be used for an action if no
-   explicit one is specified.
 
-.. function:: dirGroupNum [gid]
+fileGroupNum
+^^^^^^^^^^^^
 
-   *Default: process user's primary group*
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   Sets the default dirGroupNum to be used for an action if no
-   explicit one is specified.
- 
+   "integer", "process user's primary group", "no", "none"
+
+Sets the default fileGroupNum to be used for an action if no
+explicit one is specified.
+
+
+dirOwner
+^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "UID", "process user", "no", "``$DirOwner``"
+
+Sets the default dirOwner to be used for an action if no
+explicit one is specified.
+
+
+dirOwnerNum
+^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "integer", "process user", "no", "none"
+
+Sets the default dirOwnerNum to be used for an action if no
+explicit one is specified.
+
+
+dirGroup
+^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "GID", "process user's primary group", "no", "``$DirGroup``"
+
+Sets the default dirGroup to be used for an action if no
+explicit one is specified.
+
+
+dirGroupNum
+^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "integer", "process user's primary group", "no", "none"
+
+Sets the default dirGroupNum to be used for an action if no
+explicit one is specified.
+
+
+dynafile.donotsuspend
+^^^^^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "binary", "on", "no", "none"
+
+DynaFiles are not suspended.
+
 
 Action Parameters
-^^^^^^^^^^^^^^^^^
+-----------------
+
 Note that **one** of the parameters *file* or *dynaFile* must be specified. This
 selects whether a static or dynamic file (name) shall be written to.
 
-.. function::  file [fileName]
 
-   *Default: none*
+File
+^^^^
 
-   This creates a static file output, always writing into the same file.
-   If the file already exists, new data is appended to it. Existing
-   data is not truncated. If the file does not already exist, it is
-   created. Files are kept open as long as rsyslogd is active. This
-   conflicts with external log file rotation. In order to close a file
-   after rotation, send rsyslogd a HUP signal after the file has been
-   rotated away. Either file or dynaFile can be used, but not both. If both
-   are given, dynaFile will be used.
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-.. function::  dynaFile [templateName]
+   "string", "none", "no", "none"
 
-   *Default: none*
+This creates a static file output, always writing into the same file.
+If the file already exists, new data is appended to it. Existing
+data is not truncated. If the file does not already exist, it is
+created. Files are kept open as long as rsyslogd is active. This
+conflicts with external log file rotation. In order to close a file
+after rotation, send rsyslogd a HUP signal after the file has been
+rotated away. Either file or dynaFile can be used, but not both. If both
+are given, dynaFile will be used.
 
-   For each message, the file name is generated based on the given
-   template. Then, this file is opened. As with the *file* property,
-   data is appended if the file already exists. If the file does not
-   exist, a new file is created. The template given in "templateName"
-   is just a regular :doc:`rsyslog template <../templates>`, so all
-   you have full control over how to format the file name. Either file
-   or dynaFile can be used, but not both. If both are given, dynaFile
-   will be used.
 
-   A cache of recent files is kept. Note
-   that this cache can consume quite some memory (especially if large
-   buffer sizes are used). Files are kept open as long as they stay
-   inside the cache.
-   Files are removed from the cache when a HUP signal is sent, the
-   *closeTimeout* occurs, or the cache runs out of space, in which case
-   the least recently used entry is evicted.
+dynaFile
+^^^^^^^^
 
-.. function::  template [templateName]
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   *Default: template set via "template" module parameter*
+   "string", "none", "no", "none"
 
-   Sets the template to be used for this action.
+For each message, the file name is generated based on the given
+template. Then, this file is opened. As with the *file* property,
+data is appended if the file already exists. If the file does not
+exist, a new file is created. The template given in "templateName"
+is just a regular :doc:`rsyslog template <../templates>`, so all
+you have full control over how to format the file name. Either file
+or dynaFile can be used, but not both. If both are given, dynaFile
+will be used.
 
-.. function::  closeTimeout [minutes]
+A cache of recent files is kept. Note
+that this cache can consume quite some memory (especially if large
+buffer sizes are used). Files are kept open as long as they stay
+inside the cache.
+Files are removed from the cache when a HUP signal is sent, the
+*closeTimeout* occurs, or the cache runs out of space, in which case
+the least recently used entry is evicted.
 
-   *Default: for static files: 0; for dynamic files: 10*
 
-   *Available since: 8.3.3*
+Template
+^^^^^^^^
 
-   Specifies after how many minutes of inactivity a file is
-   automatically closed. Note that this functionality is implemented
-   based on the
-   :doc:`janitor process <../../concepts/janitor>`.
-   See its doc to understand why and how janitor-based times are
-   approximate.
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-.. function::  dynaFileCacheSize [size]
+   "word", "template set via module parameter", "no", "``$ActionFileDefaultTemplate``"
 
-   *Default: 10*
+Sets the template to be used for this action.
 
-   Applies only if dynamic filenames are used.
-   Specifies the number of DynaFiles that will be kept open.
-   Note that this is a per-action value, so if you have
-   multiple dynafile actions, each of them have their individual caches
-   (which means the numbers sum up). Ideally, the cache size exactly
-   matches the need. You can use :doc:`impstats <impstats>` to tune
-   this value. Note that a too-low cache size can be a very considerable
-   performance bottleneck.
 
-.. function::  zipLevel [level]
+closeTimeout
+^^^^^^^^^^^^
 
-   *Default: 0*
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   if greater 0, turns on gzip compression of the output file. The
-   higher the number, the better the compression, but also the more CPU
-   is required for zipping.
+   "integer", "File: 0 DynaFile: 10", "no", "none"
 
-.. function::  veryRobustZip [switch]
+.. versionadded:: 8.3.3
 
-   *Default: off*
+Specifies after how many minutes of inactivity a file is
+automatically closed. Note that this functionality is implemented
+based on the
+:doc:`janitor process <../../concepts/janitor>`.
+See its doc to understand why and how janitor-based times are
+approximate.
 
-   *Available since: 7.3.0*
 
-   if *zipLevel* is greater 0,
-   then this setting controls if extra headers are written to make the
-   resulting file extra hardened against malfunction. If set to off,
-   data appended to previously unclean closed files may not be
-   accessible without extra tools. Note that this risk is usually
-   expected to be bearable, and thus "off" is the default mode. The
-   extra headers considerably degrade compression, files with this
-   option set to "on" may be four to five times as large as files
-   processed in "off" mode.
+dynaFileCacheSize
+^^^^^^^^^^^^^^^^^
 
-.. function::  flushInterval [interval]
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   *Default: 1*
+   "integer", "10", "no", "``$DynaFileCacheSize``"
 
-   Defines, in seconds, the interval after which unwritten data is
-   flushed.
+Applies only if dynamic filenames are used.
+Specifies the number of DynaFiles that will be kept open.
+Note that this is a per-action value, so if you have
+multiple dynafile actions, each of them have their individual caches
+(which means the numbers sum up). Ideally, the cache size exactly
+matches the need. You can use :doc:`impstats <impstats>` to tune
+this value. Note that a too-low cache size can be a very considerable
+performance bottleneck.
 
-.. function:: asyncWriting [switch]
 
-   *Default: off*
+zipLevel
+^^^^^^^^
 
-   if turned on, the files will be written in asynchronous mode via a
-   separate thread. In that case, double buffers will be used so that
-   one buffer can be filled while the other buffer is being written.
-   Note that in order to enable FlushInterval, AsyncWriting must be set
-   to "on". Otherwise, the flush interval will be ignored.
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-.. function::  flushOnTXEnd [switch]
+   "integer", "0", "no", "``$OMFileZipLevel``"
 
-   *Default: on*
+If greater 0, turns on gzip compression of the output file. The
+higher the number, the better the compression, but also the more CPU
+is required for zipping.
 
-   Omfile has the capability to write output using a buffered writer.
-   Disk writes are only done when the buffer is full. So if an error
-   happens during that write, data is potentially lost. Bear in mind that
-   the buffer may become full only after several hours or a rsyslog
-   shutdown (however a buffer flush can still be forced by sending rsyslogd
-   a HUP signal). In cases where this is unacceptable, set FlushOnTXEnd
-   to "on". Then, data is written at the end of each transaction
-   (for pre-v5 this means after each log message) and the usual error
-   recovery thus can handle write errors without data loss.
-   Note that this option severely reduces the effect of zip compression
-   and should be switched to "off" for that use case.
-   Also note that the default -on- is primarily an aid to preserve the
-   traditional syslogd behaviour.
 
-.. function::  ioBufferSize [size]
+veryRobustZip
+^^^^^^^^^^^^^
 
-   *Default: 4 KiB*
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   size of the buffer used to writing output data. The larger the
-   buffer, the potentially better performance is. The default of 4k is
-   quite conservative, it is useful to go up to 64k, and 128K if you
-   used gzip compression (then, even higher sizes may make sense)
+   "binary", "off", "no", "none"
 
-.. function::  dirOwner [userName]
+.. versionadded:: 7.3.0
 
-   *Default: system default*
+If *zipLevel* is greater 0,
+then this setting controls if extra headers are written to make the
+resulting file extra hardened against malfunction. If set to off,
+data appended to previously unclean closed files may not be
+accessible without extra tools. Note that this risk is usually
+expected to be bearable, and thus "off" is the default mode. The
+extra headers considerably degrade compression, files with this
+option set to "on" may be four to five times as large as files
+processed in "off" mode.
 
-   Set the file owner for directories newly created. Please note that
-   this setting does not affect the owner of directories already
-   existing. The parameter is a user name, for which the userid is
-   obtained by rsyslogd during startup processing. Interim changes to
-   the user mapping are not detected.
 
-.. function::  dirOwnerNum [uid]
+flushInterval
+^^^^^^^^^^^^^
 
-   *Default: system default*
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   *Available since: 7.5.8, 8.1.4*
+   "integer", "1", "no", "``$OMFileFlushInterval``"
 
-   Set the file owner for directories newly created. Please note that
-   this setting does not affect the owner of directories already
-   existing. The parameter is a numerical ID, which is used regardless
-   of whether the user actually exists. This can be useful if the user
-   mapping is not available to rsyslog during startup.
+Defines, in seconds, the interval after which unwritten data is
+flushed.
 
-.. function::  dirGroup [groupName]
 
-   *Default: system default*
+asyncWriting
+^^^^^^^^^^^^
 
-   Set the group for directories newly created. Please note that this
-   setting does not affect the group of directories already existing.
-   The parameter is a group name, for which the groupid is obtained by
-   rsyslogd on during startup processing. Interim changes to the user
-   mapping are not detected.
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-.. function::  dirGroupNum [gid]
+   "binary", "off", "no", "``$OMFileASyncWriting``"
 
-   *Default: system default*
+If turned on, the files will be written in asynchronous mode via a
+separate thread. In that case, double buffers will be used so that
+one buffer can be filled while the other buffer is being written.
+Note that in order to enable FlushInterval, AsyncWriting must be set
+to "on". Otherwise, the flush interval will be ignored.
 
-   Set the group for directories newly created. Please note that this
-   setting does not affect the group of directories already existing.
-   The parameter is a numerical ID, which is used regardless of whether
-   the group actually exists. This can be useful if the group mapping is
-   not available to rsyslog during startup.
 
-.. function::  fileOwner [userName]
+flushOnTXEnd
+^^^^^^^^^^^^
 
-   *Default: system default*
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   Set the file owner for files newly created. Please note that this
-   setting does not affect the owner of files already existing. The
-   parameter is a user name, for which the userid is obtained by
-   rsyslogd during startup processing. Interim changes to the user
-   mapping are *not* detected.
+   "binary", "on", "no", "``$OMFileFlushOnTXEnd``"
 
-.. function::  fileOwnerNum [uid]
+Omfile has the capability to write output using a buffered writer.
+Disk writes are only done when the buffer is full. So if an error
+happens during that write, data is potentially lost. Bear in mind that
+the buffer may become full only after several hours or a rsyslog
+shutdown (however a buffer flush can still be forced by sending rsyslogd
+a HUP signal). In cases where this is unacceptable, set FlushOnTXEnd
+to "on". Then, data is written at the end of each transaction
+(for pre-v5 this means after each log message) and the usual error
+recovery thus can handle write errors without data loss.
+Note that this option severely reduces the effect of zip compression
+and should be switched to "off" for that use case.
+Also note that the default -on- is primarily an aid to preserve the
+traditional syslogd behaviour.
 
-   *Default: system default*
 
-   *Available since: 7.5.8, 8.1.4*
+ioBufferSize
+^^^^^^^^^^^^
 
-   Set the file owner for files newly created. Please note that this
-   setting does not affect the owner of files already existing. The
-   parameter is a numerical ID, which which is used regardless of
-   whether the user actually exists. This can be useful if the user
-   mapping is not available to rsyslog during startup.
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-.. function::  fileGroup [groupName]
+   "size", "4 KiB", "no", "``$OMFileIOBufferSize``"
 
-   *Default: system default*
+Size of the buffer used to writing output data. The larger the
+buffer, the potentially better performance is. The default of 4k is
+quite conservative, it is useful to go up to 64k, and 128K if you
+used gzip compression (then, even higher sizes may make sense)
 
-   Set the group for files newly created. Please note that this setting
-   does not affect the group of files already existing. The parameter is
-   a group name, for which the groupid is obtained by rsyslogd during
-   startup processing. Interim changes to the user mapping are not
-   detected.
 
-.. function::  fileGroupNum [gid]
+dirOwner
+^^^^^^^^
 
-   *Default: system default*
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   *Available since: 7.5.8, 8.1.4*
+   "UID", "system default", "no", "``$DirOwner``"
 
-   Set the group for files newly created. Please note that this setting
-   does not affect the group of files already existing. The parameter is
-   a numerical ID, which is used regardless of whether the group
-   actually exists. This can be useful if the group mapping is not
-   available to rsyslog during startup.
+Set the file owner for directories newly created. Please note that
+this setting does not affect the owner of directories already
+existing. The parameter is a user name, for which the userid is
+obtained by rsyslogd during startup processing. Interim changes to
+the user mapping are not detected.
 
-.. function::  fileCreateMode [octalNumber]
 
-   *Default: equally-named module parameter*
+dirOwnerNum
+^^^^^^^^^^^
 
-   The FileCreateMode directive allows to specify the creation mode
-   with which rsyslogd creates new files. If not specified, the value
-   0644 is used (which retains backward-compatibility with earlier
-   releases). The value given must always be a 4-digit octal number,
-   with the initial digit being zero.
-   Please note that the actual permission depend on rsyslogd's process
-   umask. If in doubt, use "$umask 0000" right at the beginning of the
-   configuration file to remove any restrictions.
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-.. function::  dirCreateMode [octalNumber]
+   "integer", "system default", "no", "``$DirOwnerNum``"
 
-   *Default: equally-named module parameter*
+.. versionadded:: 7.5.8
 
-   This is the same as FileCreateMode, but for directories
-   automatically generated.
+Set the file owner for directories newly created. Please note that
+this setting does not affect the owner of directories already
+existing. The parameter is a numerical ID, which is used regardless
+of whether the user actually exists. This can be useful if the user
+mapping is not available to rsyslog during startup.
 
-.. function::  failOnChOwnFailure [switch]
 
-   *Default: on*
+dirGroup
+^^^^^^^^
 
-   This option modifies behaviour of file creation. If different owners
-   or groups are specified for new files or directories and rsyslogd
-   fails to set these new owners or groups, it will log an error and NOT
-   write to the file in question if that option is set to "on". If it is
-   set to "off", the error will be ignored and processing continues.
-   Keep in mind, that the files in this case may be (in)accessible by
-   people who should not have permission. The default is "on".
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-.. function::  createDirs [switch]
+   "GID", "system default", "no", "``$DirGroup``"
 
-   *Default: on*
+Set the group for directories newly created. Please note that this
+setting does not affect the group of directories already existing.
+The parameter is a group name, for which the groupid is obtained by
+rsyslogd on during startup processing. Interim changes to the user
+mapping are not detected.
 
-   create directories on an as-needed basis
 
-.. function::  sync [switch]
+dirGroupNum
+^^^^^^^^^^^
 
-   *Default: off*
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   enables file syncing capability of omfile.
+   "integer", "system default", "no", "``$DirGroupNum``"
 
-   When enabled, rsyslog does a sync to the data file as well as the
-   directory it resides after processing each batch. There currently
-   is no way to sync only after each n-th batch.
+Set the group for directories newly created. Please note that this
+setting does not affect the group of directories already existing.
+The parameter is a numerical ID, which is used regardless of whether
+the group actually exists. This can be useful if the group mapping is
+not available to rsyslog during startup.
 
-   Enabling sync causes a severe performance hit. Actually,
-   it slows omfile so much down, that the probability of loosing messages
-   **increases**. In short,
-   you should enable syncing only if you know exactly what you do, and
-   fully understand how the rest of the engine works, and have tuned
-   the rest of the engine to lossless operations.
 
-.. function::  sig.provider [providerName]
+fileOwner
+^^^^^^^^^
 
-   *Default: no signature provider*
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   Selects a signature provider for log signing. By selecting a provider,
-   the signature feature is turned on.
+   "UID", "system default", "no", "``$FileOwner``"
 
-   Currently there is one signature provider available: ":doc:`ksi_ls12 <sigprov_ksi12>`".
+Set the file owner for files newly created. Please note that this
+setting does not affect the owner of files already existing. The
+parameter is a user name, for which the userid is obtained by
+rsyslogd during startup processing. Interim changes to the user
+mapping are *not* detected.
 
-   Previous signature providers ":doc:`gt <sigprov_gt>`" and ":doc:`ksi <sigprov_ksi>`" are depricated.
 
-.. function::  cry.provider [providerName]
+fileOwnerNum
+^^^^^^^^^^^^
 
-   *Default: no crypto provider*
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-   Selects a crypto provider for log encryption. By selecting a provider,
-   the encryption feature is turned on.
+   "integer", "system default", "no", "``$FileOwnerNum``"
 
-   Currently, there only is one provider called ":doc:`gcry <../cryprov_gcry>`".
+.. versionadded:: 7.5.8
+
+Set the file owner for files newly created. Please note that this
+setting does not affect the owner of files already existing. The
+parameter is a numerical ID, which which is used regardless of
+whether the user actually exists. This can be useful if the user
+mapping is not available to rsyslog during startup.
+
+
+fileGroup
+^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "GID", "system default", "no", "``$FileGroup``"
+
+Set the group for files newly created. Please note that this setting
+does not affect the group of files already existing. The parameter is
+a group name, for which the groupid is obtained by rsyslogd during
+startup processing. Interim changes to the user mapping are not
+detected.
+
+
+fileGroupNum
+^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "integer", "system default", "no", "``$FileGroupNum``"
+
+.. versionadded:: 7.5.8
+
+Set the group for files newly created. Please note that this setting
+does not affect the group of files already existing. The parameter is
+a numerical ID, which is used regardless of whether the group
+actually exists. This can be useful if the group mapping is not
+available to rsyslog during startup.
+
+
+fileCreateMode
+^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "string", "equally-named module parameter", "no", "``$FileCreateMode``"
+
+The FileCreateMode directive allows to specify the creation mode
+with which rsyslogd creates new files. If not specified, the value
+0644 is used (which retains backward-compatibility with earlier
+releases). The value given must always be a 4-digit octal number,
+with the initial digit being zero.
+Please note that the actual permission depend on rsyslogd's process
+umask. If in doubt, use "$umask 0000" right at the beginning of the
+configuration file to remove any restrictions.
+
+
+dirCreateMode
+^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "string", "equally-named module parameter", "no", "``$DirCreateMode``"
+
+This is the same as FileCreateMode, but for directories
+automatically generated.
+
+
+failOnChOwnFailure
+^^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "binary", "on", "no", "``$FailOnCHOwnFailure``"
+
+This option modifies behaviour of file creation. If different owners
+or groups are specified for new files or directories and rsyslogd
+fails to set these new owners or groups, it will log an error and NOT
+write to the file in question if that option is set to "on". If it is
+set to "off", the error will be ignored and processing continues.
+Keep in mind, that the files in this case may be (in)accessible by
+people who should not have permission. The default is "on".
+
+
+createDirs
+^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "binary", "on", "no", "``$CreateDirs``"
+
+Create directories on an as-needed basis
+
+
+sync
+^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "binary", "off", "no", "``$ActionFileEnableSync``"
+
+Enables file syncing capability of omfile.
+
+When enabled, rsyslog does a sync to the data file as well as the
+directory it resides after processing each batch. There currently
+is no way to sync only after each n-th batch.
+
+Enabling sync causes a severe performance hit. Actually,
+it slows omfile so much down, that the probability of loosing messages
+**increases**. In short,
+you should enable syncing only if you know exactly what you do, and
+fully understand how the rest of the engine works, and have tuned
+the rest of the engine to lossless operations.
+
+
+sig.Provider
+^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "word", "no signature provider", "no", "none"
+
+Selects a signature provider for log signing. By selecting a provider,
+the signature feature is turned on.
+
+Currently there is one signature provider available: ":doc:`ksi_ls12 <sigprov_ksi12>`".
+
+Previous signature providers ":doc:`gt <sigprov_gt>`" and ":doc:`ksi <sigprov_ksi>`" are deprecated.
+
+
+cry.Provider
+^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "word", "no crypto provider", "no", "none"
+
+Selects a crypto provider for log encryption. By selecting a provider,
+the encryption feature is turned on.
+
+Currently, there only is one provider called ":doc:`gcry <../cryprov_gcry>`".
+
+
+.. _omfile-statistic-counter:
+
+Statistic Counter
+=================
+
+This plugin maintains :doc:`statistics <../rsyslog_statistic_counter>` for each
+dynafile cache. Dynafile cache performance is critical for overall system performance,
+so reviewing these counters on a busy system (especially one experiencing performance
+problems) is advisable. The statistic is named "dynafile cache", followed by the
+template name used for this dynafile action.
+
+The following properties are maintained for each dynafile:
+
+-  **request** - total number of requests made to obtain a dynafile
+
+-  **level0** - requests for the current active file, so no real cache
+   lookup needed to be done. These are extremely good.
+
+-  **missed** - cache misses, where the required file did not reside in
+   cache. Even with a perfect cache, there will be at least one miss per
+   file. That happens when the file is being accessed for the first time
+   and brought into cache. So "missed" will always be at least as large
+   as the number of different files processed.
+
+-  **evicted** - the number of times a file needed to be evicted from
+   the cache as it ran out of space. These can simply happen when
+   date-based files are used, and the previous date files are being
+   removed from the cache as time progresses. It is better, though, to
+   set an appropriate "closeTimeout" (counter described below), so that
+   files are removed from the cache after they become no longer accessed.
+   It is bad if active files need to be evicted from the cache. This is a
+   very costly operation as an evict requires to close the file (thus a
+   full flush, no matter of its buffer state) and a later access requires
+   a re-open – and the eviction of another file, as the cache obviously has
+   run out of free entries. If this happens frequently, it can severely
+   affect performance. So a high eviction rate is a sign that the dynafile
+   cache size should be increased. If it is already very high, it is
+   recommended to re-think about the design of the file store, at least if
+   the eviction process causes real performance problems.
+
+-  **maxused** - the maximum number of cache entries ever used. This can
+   be used to trim the cache down to a value that’s actually useful but
+   does not waste resources. Note that when date-based files are used and
+   rsyslog is run for an extended period of time, the cache gradually fills
+   up to the max configured value as older files are migrated out of it.
+   This will make "maxused" questionable after some time. Frequently enough
+   purging the cache can prevent this (usually, once a day is sufficient).
+
+-  **closetimeouts** - available since 8.3.3 – tells how often a file was
+   closed due to timeout settings ("closeTimeout" action parameter). These
+   are cases where dynafiles or static files have been closed by rsyslog due
+   to inactivity. Note that if no "closeTimeout" is specified for the action,
+   this counter always is zero. A high or low number in itself doesn’t mean
+   anything good or bad. It totally depends on the use case, so no general
+   advise can be given.
 
 
 Caveats/Known Bugs
-------------------
+==================
 
 -  people often report problems that dynafiles are not properly created.
    The common cause for this problem is SELinux rules, which do not permit
@@ -444,85 +793,18 @@ Caveats/Known Bugs
    have been moved results in inconsistencies and will most probably
    render the file set unusable.
 
-Example
--------
+
+Examples
+========
+
+Example 1
+---------
 
 The following command writes all syslog messages into a file.
 
-::
+.. code-block:: none
 
-  action(type="omfile" dirCreateMode="0700" FileCreateMode="0644"
-         File="/var/log/messages")
+   action(type="omfile" dirCreateMode="0700" FileCreateMode="0644"
+          File="/var/log/messages")
 
-Legacy Configuration Directives
--------------------------------
 
-Note that the legacy configuration parameters do **not** affect
-new-style action definitions via the action() object. This is
-by design. To set default for action() objects, use module parameters
-in the
-
-::
-
-  module(load="builtin:omfile" ...)
-
-object.
-
-Read about :ref:`the importance of order in legacy configuration<legacy-action-order>`
-to understand how to use these configuration directives.
-**Legacy directives should NOT be used when writing new configuration files.**
-
--  **$DynaFileCacheSize**
-   equivalent to the "dynaFileCacheSize" parameter
--  **$OMFileZipLevel**
-   equivalent to the "zipLevel" parameter
--  **$OMFileFlushInterval**
-   equivalent to the "flushInterval" parameter
--  **$OMFileASyncWriting**
-   equivalent to the "asyncWriting" parameter
--  **$OMFileFlushOnTXEnd**
-   equivalent to the "flushOnTXEnd" parameter
--  **$OMFileIOBufferSize**
-   equivalent to the "IOBufferSize" parameter
--  **$DirOwner**
-   equivalent to the "dirOwner" parameter
--  **$DirGroup**
-   equivalent to the "dirGroup" parameter
--  **$FileOwner**
-   equivalent to the "fileOwner" parameter
--  **$FileGroup**
-   equivalent to the "fileGroup" parameter
--  **$DirCreateMode**
-   equivalent to the "dirCreateMode" parameter
--  **$FileCreateMode**
-   equivalent to the "fileCreateMode" parameter
--  **$FailOnCHOwnFailure**
-   equivalent to the "failOnChOwnFailure" parameter
--  **$F$OMFileForceCHOwn**
-   equivalent to the "ForceChOwn" parameter
--  **$CreateDirs**
-   equivalent to the "createDirs" parameter
--  **$ActionFileEnableSync**
-   equivalent to the "enableSync" parameter
--  **$ActionFileDefaultTemplate**
-   equivalent to the "template" module parameter
--  **$ResetConfigVariables**
-   Resets all configuration variables to their default value.
-
-Legacy Sample
-^^^^^^^^^^^^^
-
-The following command writes all syslog messages into a file.
-
-::
-
-  $DirCreateMode 0700
-  $FileCreateMode 0644
-  *.* /var/log/messages
-
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2008-2014 by `Rainer
-Gerhards <http://www.gerhards.net/rainer>`_ and
-`Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL version
-3 or higher.

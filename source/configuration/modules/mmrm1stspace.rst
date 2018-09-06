@@ -10,6 +10,8 @@ if it is a space.
 Configuration Parameters
 ------------------------
 
+Note: parameter names are case-insensitive.
+
 Currently none.
 
 Examples
@@ -19,6 +21,7 @@ This example receives messages over imtcp and modifies them, before sending
 them to a file.
 
 ::
+
    module(load="imtcp")
    module(load="mmrm1stspace")
    input(type="imtcp" port="13514")

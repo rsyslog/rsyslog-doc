@@ -1,13 +1,16 @@
+********************************************************
 Support module for external message modification modules
-========================================================
+********************************************************
 
-**Module Name:    mmexternal**
+===========================  ===========================================================================
+**Module Name:**             **mmexternal**
+**Author:**                  `Rainer Gerhards <https://rainer.gerhards.net/>`_ <rgerhards@adiscon.com>
+**Available since:**         8.3.0
+===========================  ===========================================================================
 
-**Available since:   ** 8.3.0
 
-**Author:**\ Rainer Gerhards <rgerhards@adiscon.com>
-
-**Description**:
+Purpose
+=======
 
 This module permits to integrate external message modification plugins
 into rsyslog.
@@ -16,45 +19,92 @@ For details on the interface specification, see rsyslog's source in the
 ./plugins/external/INTERFACE.md.
  
 
-**Action Parameters**:
+Configuration Parameters
+========================
 
--  **binary**
+.. note::
 
-   The name of the external message modification plugin to be called. This
-   can be a full path name.
+   Parameter names are case-insensitive.
 
-- **interface.input**
 
-  This can either be "msg", "rawmsg" or "fulljson". In case of "fulljson", the
-  message object is provided as a json object. Otherwise, the respective
-  property is provided. This setting **must** match the external plugin's
-  expectations. Check the external plugin documentation for what needs to be used.
+Action Parameters
+-----------------
 
-- **output**
-  
-  This is a debug aid. If set, this is a filename where the plugins output
-  is logged. Note that the output is also being processed as usual by rsyslog.
-  Setting this parameter thus gives insight into the internal processing
-  that happens between plugin and rsyslog core.
+binary
+^^^^^^
 
-- **forcesingleinstance**
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-  This is an expert parameter, just like the equivalent *omprog* parameter.
-  See the message modification plugin's documentation if it is needed.
+   "string", "none", "yes", "none"
 
-**Caveats/Known Bugs:**
+The name of the external message modification plugin to be called. This
+can be a full path name.
 
--  None.
 
-**Sample:**
+interface.input
+^^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "string", "msg", "no", "none"
+
+This can either be "msg", "rawmsg" or "fulljson". In case of "fulljson", the
+message object is provided as a json object. Otherwise, the respective
+property is provided. This setting **must** match the external plugin's
+expectations. Check the external plugin documentation for what needs to be used.
+
+
+output
+^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "string", "none", "no", "none"
+
+This is a debug aid. If set, this is a filename where the plugins output
+is logged. Note that the output is also being processed as usual by rsyslog.
+Setting this parameter thus gives insight into the internal processing
+that happens between plugin and rsyslog core.
+
+
+forceSingleInstance
+^^^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "binary", "off", "no", "none"
+
+This is an expert parameter, just like the equivalent *omprog* parameter.
+See the message modification plugin's documentation if it is needed.
+
+
+Examples
+========
+
+Execute external module
+-----------------------
 
 The following config file snippet is used to write execute an external
 message modification module "mmexternal.py". Note that the path to the
 module is specified here. This is necessary if the module is not in the
 default search path.
 
-::
+.. code-block:: none
 
-  module (load="mmexternal") # needs to be done only once inside the config
+   module (load="mmexternal") # needs to be done only once inside the config
 
-  action(type="mmexternal" binary="/path/to/mmexternal.py")
+   action(type="mmexternal" binary="/path/to/mmexternal.py")
+
+

@@ -82,11 +82,9 @@ True Global Directives
    is large enough to get a good idea which message was repeated but it
    is not necessarily large enough for the whole message. (Introduced
    with 4.1.5). Once set, it affects all following actions.
--  **$OptimizeForUniprocessor** [on/**off**] - turns on optimizatons
-   which lead to better performance on uniprocessors. If you run on
-   multicore-machiens, turning this off lessens CPU load. The default
-   may change as uniprocessor systems become less common. [available
-   since 4.1.0]
+-  **$OptimizeForUniprocessor** - This directive is no longer supported.
+   While present in versions prior to 8.32.0, the directive had no effect
+   for many years. Attempts to use the directive now results in a warning.
 -  **$PreserveFQDN** [on/**off**) - if set to off (legacy default to remain
    compatible to sysklogd), the domain part from a name that is within
    the same domain as the receiving system is stripped. If set to on,
@@ -137,13 +135,13 @@ To understand queue parameters, read
 -  **$MainMsgQueueDequeueSlowdown** <number> [number is timeout in
    *micro*\ seconds (1000000us is 1sec!), default 0 (no delay). Simple
    rate-limiting!]
--  **$MainMsgQueueDiscardMark** <number> [default 9750]
+-  **$MainMsgQueueDiscardMark** <number> [default 98% of queue size]
 -  **$MainMsgQueueDiscardSeverity** <severity> [either a textual or
    numerical severity! default 4 (warning)]
 -  **$MainMsgQueueFileName** <name>
--  **$MainMsgQueueHighWaterMark** <number> [default 8000]
+-  **$MainMsgQueueHighWaterMark** <number> [default 90% of queue size]
 -  **$MainMsgQueueImmediateShutdown** [on/**off**]
--  **$MainMsgQueueLowWaterMark** <number> [default 2000]
+-  **$MainMsgQueueLowWaterMark** <number> [default 70% of queue size]
 -  **$MainMsgQueueMaxFileSize** <size\_nbr>, default 1m
 -  **$MainMsgQueueTimeoutActionCompletion** <number> [number is timeout in
    ms (1000ms is 1sec!), default 1000, 0 means immediate!]
@@ -155,6 +153,6 @@ To understand queue parameters, read
    in ms (1000ms is 1sec!), default 60000 (1 minute)]
 -  **$MainMsgQueueType** [**FixedArray**/LinkedList/Direct/Disk]
 -  **$MainMsgQueueSaveOnShutdown**  [on/**off**]
--  **$MainMsgQueueWorkerThreads** <number>, num worker threads, default 1,
+-  **$MainMsgQueueWorkerThreads** <number>, num worker threads, default 2,
    recommended 1
--  **$MainMsgQueueWorkerThreadMinumumMessages** <number>, default 100
+-  **$MainMsgQueueWorkerThreadMinumumMessages** <number>, default queue size/number of workers

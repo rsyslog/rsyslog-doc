@@ -1,9 +1,7 @@
 Using php-syslog-ng with rsyslog
 ================================
 
-*Written by* `Rainer
-Gerhards <http://www.adiscon.com/en/people/rainer-gerhards.php>`_
-*(2005-08-04)*
+*Written by* `Rainer Gerhards <https://rainer.gerhards.net>`_ *(2005-08-04)*
 
 Note: it has been reported that this guide is somewhat outdated. Most
 importantly, this guide is for the **original** php-syslog-ng and
@@ -152,35 +150,7 @@ event log entries. I have set up a `demo
 server <http://demo.phplogcon.org/>`_., You can have a peek at it
 without installing anything.
 
-Feedback Requested
-------------------
-
-I would appreciate feedback on this paper. If you have additional ideas,
-comments or find bugs, please `let me
-know <mailto:rgerhards@adiscon.com>`_.
-
 References and Additional Material
 ----------------------------------
 
 -  `php-syslog-ng <http://www.vermeer.org/projects/php-syslog-ng>`_
-
-Revision History
-----------------
-
--  2005-08-04 \* `Rainer
-   Gerhards <http://www.adiscon.com/en/people/rainer-gerhards.php>`_ \*
-   initial version created
-
-Copyright
----------
-
-Copyright (c) 2005 `Rainer
-Gerhards <http://www.adiscon.com/en/people/rainer-gerhards.php>`_ and
-`Adiscon <http://www.adiscon.com/en/>`_.
-
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.2 or
-any later version published by the Free Software Foundation; with no
-Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
-copy of the license can be viewed at
-`http://www.gnu.org/copyleft/fdl.html <http://www.gnu.org/copyleft/fdl.html>`_.

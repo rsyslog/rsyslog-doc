@@ -1,4 +1,4 @@
-KSI Signature Provider (rsyslog-ksi-ls12)
+Keyless Signature Infrastructure Provider (rsyslog-ksi-ls12)
 ============================================================
 
 **Module Name: rsyslog-ksi-ls12**
@@ -10,7 +10,7 @@ KSI Signature Provider (rsyslog-ksi-ls12)
 Description
 ###########
 
-The ``rsyslog-ksi-ls12`` module enables record level log signing with Guardtime KSI Blockchain. KSI signatures provide long-term log integrity and prove the time of log records cryptographically using independent verification.
+The ``rsyslog-ksi-ls12`` module enables record level log signing with Guardtime KSI blockchain. KSI keyless signatures provide long-term log integrity and prove the time of log records cryptographically using independent verification.
 
 Main features of the ``rsyslog-ksi-ls12`` module are:
 
@@ -63,8 +63,6 @@ Optional parameters (if not defined, default value is used):
   Other SHA-2, as well as RIPEMED-160 functions are supported.
 - **sig.block.timeLimit** defines the maximum duration of one block in seconds.
   Default value ``"0"`` indicates that no time limit is set.
-- **sig.aggregator.hmacAlg** defines the HMAC algorithm to be used in communication with the KSI Gateway.
-  This must be agreed on with the KSI service provider, default is SHA2-256.
 - **sig.keepTreeHashes** turns on/off the storing of the hashes that were used as leaves
   for building the Merkle tree, default is ``"off"``.
 - **sig.keepRecordHashes** turns on/off the storing of the hashes of the log records, default is ``"on"``.
@@ -88,7 +86,6 @@ To sign the logs in ``/var/log/secure`` with KSI:
       "http://tryout.guardtime.net:8080/gt-signingservice"
     sig.aggregator.user="rsmith"
     sig.aggregator.key="secret"
-    sig.aggregator.hmacAlg="SHA2-256"
     sig.keepTreeHashes="off"
     sig.keepRecordHashes="on")
 

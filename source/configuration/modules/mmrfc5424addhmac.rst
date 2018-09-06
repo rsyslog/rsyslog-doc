@@ -27,11 +27,15 @@ mmpstrucdata.
 
 **Module Configuration Parameters**:
 
+Note: parameter names are case-insensitive.
+
 Currently none.
 
  
 
 **Action Confguration Parameters**:
+
+Note: parameter names are case-insensitive.
 
 -  **key**
    The "key" (string) to be used to generate the hmac.
@@ -87,8 +91,3 @@ development of a verification tool, please simply email
 
 -  none
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2013 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 3 or higher.

@@ -1,53 +1,192 @@
-ompgsql: PostgreSQL Database Output Module
-==========================================
+.. index:: ! ompgsql
 
-**Module Name:** ompgsql
+*******************************************
+PostgreSQL Database Output Module (ompgsql)
+*******************************************
 
-**Author:** Rainer Gerhards
-<rgerhards@adiscon.com>
+================  ==========================================================================
+**Module Name:**  ompgsql
+**Author:**       `Rainer Gerhards <rgerhards@adiscon.com>`__ and `Dan Molik <dan@danmolik.com>`__
+**Available:**    8.32+
+================  ==========================================================================
 
-**Description**:
 
-This module provides native support for logging to PostgreSQL databases. It's an alternative (with potentially superior performance) to the more generic
-`omlibdbi <omlibdbi.html>`_ module.
+Purpose
+=======
 
-**Configuration Directives**:
+This module provides native support for logging to PostgreSQL databases.
+It's an alternative (with potentially superior performance) to the more
+generic :doc:`omlibdbi <omlibdbi>` module.
 
-ompgsql uses the "old style" configuration, with everything on the action line itself
 
-**Action parameters**
+Configuration Parameters
+========================
 
-**:ompgsql:database-server,database-name,database-userid,database-password**
-   
-All parameters should be filled in for a successful connect.
+.. note::
 
-Note rsyslog contains a canned default template to write to the Postgres
-database. This template is:
+   Parameter names are case-insensitive.
 
-::
 
-  $template StdPgSQLFmt,"insert into SystemEvents (Message, Facility, FromHost, Priority, DeviceReportedTime, ReceivedAt, InfoUnitID, SysLogTag) values ('%msg%', %syslogfacility%, '%HOSTNAME%', %syslogpriority%, '%timereported:::date-pgsql%', '%timegenerated:::date-pgsql%', %iut%, '%syslogtag%')",STDSQL
+Action Parameters
+-----------------
 
-As you can see, the template is an actual SQL statement. Note the **STDSQL**
-option: it tells the template processor that the template is used for
-SQL processing, thus quote characters are quoted to prevent security
-issues. You can not assign a template without **STDSQL** to a PostgreSQL output
-action.
+Server
+^^^^^^
 
-If you would like to change fields contents or add or delete your own
-fields, you can simply do so by modifying the schema (if required) and
-creating your own custom template:
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-::
+   "word", "none", "yes", "none"
 
-  $template mytemplate,"insert into SystemEvents (Message) values ('%msg%')",STDSQL
-  :ompgsql:database-server,database-name,database-userid,database-password;mytemplate
+The hostname or address of the PostgreSQL server.
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
 
-Copyright © 2008-2014 by `Rainer
-Gerhards <http://www.gerhards.net/rainer>`_ and
-`Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL version
-3 or higher.
+Port/Serverport
+^^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "integer", "5432", "no", "none"
+
+The IP port of the PostgreSQL server.
+
+
+db
+^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "word", "none", "yes", "none"
+
+The multi-tenant database name to ``INSERT`` rows into.
+
+
+User/UID
+^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "word", "postgres", "no", "none"
+
+The username to connect to the PostgreSQL server with.
+
+
+Pass/PWD
+^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "word", "postgres", "no", "none"
+
+The password to connect to the PostgreSQL server with.
+
+
+Template
+^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "word", "none", "no", "none"
+
+The template name to use to ``INSERT`` rows into the database with. Valid SQL
+syntax is required, as the module does not perform any insertion statement
+checking.
+
+
+Examples
+========
+
+Example 1
+---------
+
+A Basic Example using the internal PostgreSQL template.
+
+.. code-block:: none
+
+   # load module
+   module(load="ompgsql")
+
+   action(type="ompgsql" server="localhost"
+          user="rsyslog" pass="test1234"
+          db="syslog")
+
+
+Example 2
+---------
+
+A Templated example.
+
+.. code-block:: none
+
+   template(name="sql-syslog" type="list" option.sql="on") {
+     constant(value="INSERT INTO SystemEvents (message, timereported) values ('")
+     property(name="msg")
+     constant(value="','")
+     property(name="timereported" dateformat="pgsql" date.inUTC="on")
+     constant(value="')")
+   }
+
+   # load module
+   module(load="ompgsql")
+
+   action(type="ompgsql" server="localhost"
+          user="rsyslog" pass="test1234"
+          db="syslog"
+          template="sql-syslog" )
+
+
+Example 3
+---------
+
+An action queue and templated example.
+
+.. code-block:: none
+
+   template(name="sql-syslog" type="list" option.sql="on") {
+     constant(value="INSERT INTO SystemEvents (message, timereported) values ('")
+     property(name="msg")
+     constant(value="','")
+     property(name="timereported" dateformat="pgsql" date.inUTC="on")
+     constant(value="')")
+   }
+
+   # load module
+   module(load="ompgsql")
+
+   action(type="ompgsql" server="localhost"
+          user="rsyslog" pass="test1234"
+          db="syslog"
+          template="sql-syslog" 
+          queue.size="10000" queue.type="linkedList"
+          queue.workerthreads="5"
+          queue.workerthreadMinimumMessages="500"
+          queue.timeoutWorkerthreadShutdown="1000"
+          queue.timeoutEnqueue="10000")
+
+
+Building
+========
+
+To compile Rsyslog with PostgreSQL support you will need to:
+
+* install *libpq* and *libpq-dev* packages, check your package manager for the correct name.
+* set *--enable-pgsql* switch on configure.
+
 

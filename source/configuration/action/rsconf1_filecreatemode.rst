@@ -1,13 +1,13 @@
 $FileCreateMode
 ---------------
 
-**Type:** global configuration directive
+**Type:** global configuration parameter
 
 **Default:** 0644
 
 **Description:**
 
-The $FileCreateMode directive allows to specify the creation mode with
+The $FileCreateMode parameter allows to specify the creation mode with
 which rsyslogd creates new files. If not specified, the value 0644 is
 used (which retains backward-compatibility with earlier releases). The
 value given must always be a 4-digit octal number, with the initial
@@ -19,7 +19,7 @@ configuration file to remove any restrictions.
 
 $FileCreateMode may be specified multiple times. If so, it specifies the
 creation mode for all selector lines that follow until the next
-$FileCreateMode directive. Order of lines is vitally important.
+$FileCreateMode parameter. Order of lines is vitally important.
 
 **Sample:**
 
@@ -36,8 +36,3 @@ As you can see, open modes depend on position in the config file. Note
 the first line, which is created with the hardcoded default creation
 mode.
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2007 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 3 or higher.

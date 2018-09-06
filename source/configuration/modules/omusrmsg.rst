@@ -1,35 +1,67 @@
+**********************
 omusrmsg: notify users
-======================
+**********************
 
-**Module Name:    omusrmsg**
+===========================  ===========================================================================
+**Module Name:**             **omusrmsg**
+**Author:**                  `Rainer Gerhards <http://rainer.gerhards.net/>`_ <rgerhards@adiscon.com>
+===========================  ===========================================================================
 
 
-**Author:**\ Rainer Gerhards <rgerhards@adiscon.com>
+Purpose
+=======
 
-**Description**:
+This module permits to send log messages to the user terminal. This is a
+built-in module so it doesn't need to be loaded.
 
-This module permits to send log messages to the user terminal.
- 
 
-**Module Parameters**:
+Configuration Parameters
+========================
 
-none
- 
+.. note::
 
-**Action Parameters**:
+   Parameter names are case-insensitive.
 
--  **users**
-   the name of the users to send data to.
 
--  **template**
-   template to user for the message.
+Action Parameters
+-----------------
 
-**Caveats/Known Bugs:**
+Users
+^^^^^
 
--  None.
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
 
-**Sample:**
+   "string", "none", "yes", "none"
 
-The following command writes emergency messages to all users::
+The name of the users to send data to.
 
-  action(type="omusrmsg" users="*")
+
+Template
+^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "word", "WallFmt/StdUsrMsgFmt", "no", "none"
+
+Template to user for the message. Default is WallFmt when parameter users is
+"*" and StdUsrMsgFmt otherwise.
+
+
+Examples
+========
+
+Write emergency messages to all users
+-------------------------------------
+
+The following command writes emergency messages to all users
+
+.. code-block:: none
+
+   action(type="omusrmsg" users="*")
+

@@ -1,7 +1,7 @@
 Input
 =====
 
-.. index:: ! input 
+.. index:: ! input
 .. _cfgobj_input:
 
 The ``input`` object, as its name suggests, describes message input sources.
@@ -20,18 +20,13 @@ The input object has different parameters:
 General Input Parameters
 ------------------------
 
+Note: parameter names are case-insensitive.
+
 .. function::  type <type-string>
 
    *Mandatory*
 
    The ``<type-string>`` is a string identifying the input module as given
-   it each module's documentation. For example, the 
+   it each module's documentation. For example, the
    :doc:`UDP syslog input <modules/imudp>` is named "imudp".
 
-
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2008-2014 by `Rainer
-Gerhards <http://www.gerhards.net/rainer>`_ and
-`Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL version
-2 or higher.

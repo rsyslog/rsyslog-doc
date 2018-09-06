@@ -22,10 +22,11 @@ queued operations and the ability to filter on any message part.
 Manual
 ------
 .. toctree::
-   :maxdepth: 1
-   
-   configuration/index
+   :maxdepth: 2
+
    installation/index
+   configuration/index
+   containers/index
    troubleshooting/index
    faq/index
    concepts/index
@@ -33,7 +34,7 @@ Manual
    tutorials/index
    development/index
    historical/index
-   
+
 Reference
 ---------
 .. toctree::
@@ -52,25 +53,17 @@ Reference
 Sponsors and Community
 ----------------------
 
-Please visit the rsyslog Sponsor's Page\ [4]_ to honor the project sponsors or 
-become one yourself! We are very grateful for any help towards the project 
+Please visit the rsyslog `Sponsor's Page`_ to honor the project sponsors or
+become one yourself! We are very grateful for any help towards the project
 goals.
-
-Visit the Rsyslog Status Page\ [2]_ to obtain current version information and 
-project status.
 
 If you like rsyslog, you might want to lend us a helping hand. It
 doesn't require a lot of time - even a single mouse click helps. Learn
-:doc:`how to help the rsyslog project <how2help>`.
+:doc:`how2help`.
+
+.. _Sponsor's Page: http://www.rsyslog.com/sponsors
 
 
-Related Links
--------------
+.. only:: dev
 
-.. [1] `rsyslog Website <http://www.rsyslog.com/>`_ 
-.. [2] `rsyslog Sponsor's Page <http://www.rsyslog.com/sponsors>`_
-.. [3] `Professional rsyslog Support <http://www.rsyslog.com/professional-services>`_
-.. [4] `Regular expression checker/generator tool for rsyslog <http://www.rsyslog.com/tool-regex>`_
-.. [5] `Rainer's twitter feed <http://twitter.com/rgerhards>`_
-.. [6] `Rainer's Blog <http://blog.gerhards.net/>`_
-
+    Built on |today| from branch |DOC_BRANCH|, commit |DOC_COMMIT|.

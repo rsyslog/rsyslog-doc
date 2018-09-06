@@ -4,7 +4,8 @@ global() configuration object
 The global configuration object permits to set global parameters. Note
 that each parameter can only be set once and cannot be re-set
 thereafter. If a parameter is set multiple times, the behaviour is
-unpredictable.
+unpredictable. As with other configuration objects, parameters for this
+object are case-insensitive.
 
 The following parameters can be set:
 
@@ -51,22 +52,22 @@ The following parameters can be set:
   **This parameter only has an effect if general debugging is enabled.**
 
 - **processInternalMessages** binary (on/off)
-  
+
   This tells rsyslog if it shall process internal messages itself. The
-  default mode of operations ("off") makes rsyslog send messages to the 
-  system log sink (and if it is the only instance, receive them back from there). 
+  default mode of operations ("off") makes rsyslog send messages to the
+  system log sink (and if it is the only instance, receive them back from there).
   This also works with systemd journal and will make rsyslog messages show up in the
-  systemd status control information. 
-  
+  systemd status control information.
+
   If this (instance) of rsyslog is not the main instance and there is another
   main logging system, rsyslog internal messages will be inserted into
-  the main instance's syslog stream. In this case, setting to ("on") will 
+  the main instance's syslog stream. In this case, setting to ("on") will
   let you receive the internal messages in the instance they originate from.
-  
-  Note that earlier versions of rsyslog worked the opposite way. More 
-  information about the change can be found in `rsyslog-error-reporting-improved <http://www.rsyslog.com/rsyslog-error-reporting-improved>`_. 
-  
-  
+
+  Note that earlier versions of rsyslog worked the opposite way. More
+  information about the change can be found in `rsyslog-error-reporting-improved <http://www.rsyslog.com/rsyslog-error-reporting-improved>`_.
+
+
 
 - **stdlog.channelspec**
 
@@ -76,19 +77,29 @@ The following parameters can be set:
   *processInternalMessages* is set to "off". Otherwise it is silently
   ignored.
 
+- **shutdown.enable.ctlc**
+
+  If set to "on", rsyslogd can be terminated by pressing ctl-c. This is
+  most useful for containers. If set to "off" (the default), this is not
+  possible.
 
 - **defaultNetstreamDriver**
 
-  Set it to "gtls" to enable TLS for `TLS syslog <http://www.rsyslog.com/doc/rsyslog_secure_tls.html>`_
+  Set it to "ossl" or "gtls" to enable TLS.
+  This `guide <http://www.rsyslog.com/doc/rsyslog_secure_tls.html>`_
+  showes how to use TLS.
 
 - **maxMessageSize**
 
-  The maximum message size rsyslog can process. Default is 8K. Anything
-  above the maximum size will be truncated.
+  Configures the maximum message size allowed for all inputs. Default is 8K.
+  Anything above the maximum size will be truncated.
+
+  Note: some modules provide separate parameters that allow overriding this
+  setting (e.g., :doc:`imrelp's MaxDataSize parameter <../../configuration/modules/imrelp>`).
 
 .. _global_janitorInterval:
 
-- **janitorInterval** [minutes], available since 8.3.3
+- **janitor.interval** [minutes], available since 8.3.3
 
   Sets the interval at which the
   :doc:`janitor process <../concepts/janitor>`
@@ -125,13 +136,13 @@ The following parameters can be set:
   performance reasons. If DNS fails during that process, the hostname
   is added as wildcard text, which results in proper, but somewhat
   slower operation once DNS is up again.
-  
+
   The default is "off".
 
 - **net.aclResolveHostname** available in 8.6.0+
-  
+
   If "off", do not resolve hostnames to IP addresses during ACL processing.
-  
+
   The default is "on".
 
 - **net.enableDNS** [on/off] available in 8.6.0+
@@ -139,7 +150,7 @@ The following parameters can be set:
   **Default:** on
 
   Can be used to turn DNS name resolution on or off.
-  
+
 - **net.permitACLWarning** [on/off] available in 8.6.0+
 
   **Default:** on
@@ -159,18 +170,25 @@ The following parameters can be set:
   It is highly suggested to change this setting to "off" only if you
   know exactly why you are doing this.
 
-- **parser.permitSlashInHostname** [on/off] available in 8.25.0+
+- **parser.permitSlashInProgramName** [on/off] available in 8.25.0+
 
   **Default:** off
 
-  This controls whether slashes in the "programname" property are
-  permitted or not. This property bases on a BSD concept, and by
-  BSD syslogd sources, slashes are NOT permitted inside the program
-  name. However, some Linux tools (including most importantly the
-  journal) store slashes as part of the program name inside the
-  syslogtag. In those cases, the programname is truncated at the
-  first slash. If this setting is changed to "on", slashes are
-  permitted and will not terminate programname parsing.
+  This controls whether slashes in the "programname" property
+  (the static part of the tag) are permitted or not. By default
+  this is not permitted, but some Linux tools (including most
+  importantly the journal) store slashes as part of the program
+  name inside the syslogtag. In those cases, the ``programname``
+  is truncated at the first slash.
+
+  In other words, if the setting is off, a value of ``app/foo[1234]``
+  in the tag will result in a programname of ``app``, and if an
+  application stores an absolute path name like ``/app/foo[1234]``,
+  the ``programname`` property will be empty ("").
+  If set to ``on``, a syslogtag of ``/app/foo[1234]`` will result
+  in a ``programname`` value of ``/app/foo`` and a syslogtag of
+  ``app/foo[1234]`` will result in a ``programname`` value of
+  ``app/foo``.
 
 - **senders.keepTrack** [on/off] available 8.17.0+
 
@@ -229,6 +247,33 @@ The following parameters can be set:
   that it makes valgrind stack traces readable. In previous versions, the
   same functionality was only available via a special build option.
 
+- **debug.files** [ARRAY of filenames] available 8.29.0+
+
+  **Default:** none
+
+  This can be used to configure rsyslog to only show debug-output generated in
+  certain files. If the option is set, but no filename is given, the
+  debug-output will behave as if the option is turned off.
+
+  Do note however that due to the way the configuration works, this might not
+  effect the first few debug-outputs, while rsyslog is reading in the configuration.
+  For optimal results we recommend to put this parameter at the very start of
+  your configuration to minmize unwanted output.
+
+  See debug.whitelist for more information.
+
+- **debug.whitelist** [on/off] available 8.29.0+
+
+  **Default:** on
+
+  This parameter is an assisting parameter of  debug.files. If debug.files
+  is used in the configuration, debug.whitelist is a switch for the files named
+  to be either white- or blacklisted from displaying debug-output. If it is set to
+  on, the listed files will generate debug-output, but no other files will.
+  The reverse principle applies if the parameter is set to off.
+
+  See debug.files for more information.
+
 - **environment** [ARRAY of environment variable=value strings] available 8.23.0+
 
   **Default:** none
@@ -258,6 +303,25 @@ The following parameters can be set:
   As usual, whitespace is irrelevant in regard to parameter placing. So
   the above sample could also have been written on a single line.
 
+- **internalmsg.ratelimit.interval** [positive integer] available 8.29.0+
+
+  **Default:** 5
+
+   Specifies the interval in seconds onto which rate-limiting is to be
+   applied to internal messgaes generated by rsyslog(i.e. error messages).
+   If more than internalmsg.ratelimit.burst messages are read during
+   that interval, further messages up to the end of the interval are
+   discarded.
+
+- **internalmsg.ratelimit.burst** [positive integer] available 8.29.0+
+
+  **Default:** 500
+
+   Specifies the maximum number of internal messages that can be emitted within
+   the ratelimit.interval interval. For futher information, see
+   description there.
+
+
   **Caution:** Environment variables are set immediately when the
   corresponding statement is encountered. Likewise, modules are loaded when
   the module load statement is encountered. This may create **sequence
@@ -269,3 +333,84 @@ The following parameters can be set:
   only for developers so there should hardly be a need to set them for a
   regular user. Also, many settings (e.g. debug) are also available as
   configuration objects.
+
+- **errorMessagesToStderr.maxNumber** [positive integer] available 8.30.0+
+
+  **Default:** unlimited
+
+  This permits to put a hard limit on the number of messages that can
+  go to stderr. If for nothing else, this capability is helpful for the
+  testbench. It permits to reduce spamming the test log while still
+  providing the ability to see initial error messages. Might also be
+  useful for some practical deployments.
+
+- **variables.caseSensitve** [boolean (on/off)] available 8.30.0+
+
+  **Default:** off
+
+  This permits to make variables case-sensitive, what might be required
+  for some exotic input data where case is the only difference in
+  field names. Note that in rsyslog versions prior to 8.30, the default was
+  "on", which very often led to user confusion. There normally should be no
+  need to switch it back to "on", except for the case to be mentioned.
+  This is also the reason why we switched the default.
+
+- **dynafile.donotsuspend** [boolean (on/off)] available 8.32.0+
+
+  **Default:** on
+
+  This permits SUSPENDing dynafile actions. Traditionally, SUSPEND mode was
+  never entered for dynafiles as it would have blocked overall processing
+  flow. Default is not to suspend (and thus block).
+
+- **internal.developeronly.options**
+
+  This is NOT to be used by end users. It provides rsyslog developers the
+  ability to do some (possibly strange) things inside rsyslog, e.g. for
+  testing. This parameter should never be set, except if instructed by
+  a developer. If it is set, rsyslog may misbehave, segfault, or cause
+  other strange things. Note that option values are not guaranteed to
+  stay the same between releases, so do not be "smart" and apply settings
+  that you found via a web search.
+
+  Once again: **users must NOT set this parameter!**
+
+- **oversizemsg.errorfile** [file name] available 8.35.0+
+
+  This parameter is used to specify the name of the oversize message log file.
+  Here messages that are longer than maxMessageSize will be gathered.
+
+- **oversizemsg.input.mode** [mode] available 8.35.0+
+
+  With this parameter the behavior for oversized messages can be specified.
+  Available modes are:
+
+  - truncate: Oversized messages will be truncated.
+  - split: Oversized messages will be split and the rest of the message will
+    be send in another message.
+  - accept: Oversized messages will still be accepted.
+
+- **oversizemsg.report** [boolean (on/off)] available 8.35.0+
+
+  This parameter specifies if an error shall be reported when an oversized
+  message is seen. The default is "on".
+
+- **abortOnUncleanConfig** [boolean (on/of)] available 8.37.0+
+
+  This parameter permits to prevent rsyslog from running when the
+  configuration file is not clean. "Not Clean" means there are errors or
+  some other annoyances that rsyslgod reports on startup. This is a
+  user-requested feature to have a strict startup mode. Note that with the
+  current code base it is not always possible to differentiate between an
+  real error and a warning-like condition. As such, the startup will also
+  prevented if warnings are present. I consider this a good thing in being
+  "strict", but I admit there also currently is no other way of doing it.
+
+- **inputs.timeout.shutdown** [numeric, ms] available 8.37.0+
+
+  This parameter specifies how long input modules are given time to terminate
+  when rsyslog is shutdown. The default is 1000ms (1 second). If the input
+  requires longer to terminate, it will be cancelled. This is necessary if
+  the input is inside a lengthy operation, but should generally be tried to
+  avoid. On busy systems it may make sense to increase that timeout. This
+  especially seems to be the case with containers.

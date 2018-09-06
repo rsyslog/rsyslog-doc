@@ -17,7 +17,7 @@ The first full implementation is available since rsyslog v6.
    
    data_types
    expressions
-   functions
+   functions/index
    control_structures
    configuration_objects
    constant_strings
@@ -27,3 +27,4 @@ The first full implementation is available since rsyslog v6.
    rainerscript_call
    rainerscript_call_indirect
    global
+   include

@@ -1,37 +1,78 @@
+***************************************
 omhdfs: Hadoop Filesystem Output Module
-=======================================
+***************************************
 
-**Module Name:    omhdfs**
+===========================  ===========================================================================
+**Module Name:**             **omhdfs**
+**Author:**                  `Rainer Gerhards <https://rainer.gerhards.net/>`_ <rgerhards@adiscon.com>
+===========================  ===========================================================================
 
-**Available since:   ** 5.7.1
 
-**Author:**\ Rainer Gerhards <rgerhards@adiscon.com>
-
-**Description**:
+Purpose
+=======
 
 This module supports writing message into files on Hadoop's HDFS file
 system.
 
-**Configuration Directives**:
 
--  **$OMHDFSFileName** [name]
-    The name of the file to which the output data shall be written.
--  **$OMHDFSHost** [name]
-    Name or IP address of the HDFS host to connect to.
--  **$OMHDFSPort** [name]
-   Port on which to connect to the HDFS host.
--  **$OMHDFSDefaultTemplate** [name]
-   Default template to be used when none is specified. This saves the
-   work of specifying the same template ever and ever again. Of course,
-   the default template can be overwritten via the usual method.
+Configuration Parameters
+========================
 
-**Caveats/Known Bugs:**
+.. note::
+
+   Parameter names are case-insensitive.
+
+
+|FmtObsoleteName| Directives
+----------------------------
+
+.. csv-table::
+   :header: "|FmtObsoleteName| directive", "type", "default", "mandatory"
+   :widths: auto
+   :class: parameter-table
+
+   "``$OMHDFSFileName``", "word", "none", "no"
+
+The name of the file to which the output data shall be written.
+
+.. csv-table::
+   :header: "|FmtObsoleteName| directive", "type", "default", "mandatory"
+   :widths: auto
+   :class: parameter-table
+
+   "``$OMHDFSHost``", "word", "default", "no"
+
+Name or IP address of the HDFS host to connect to.
+
+.. csv-table::
+   :header: "|FmtObsoleteName| directive", "type", "default", "mandatory"
+   :widths: auto
+   :class: parameter-table
+
+   "``$OMHDFSPort``", "integer", "0", "no"
+
+Port on which to connect to the HDFS host.
+
+.. csv-table::
+   :header: "|FmtObsoleteName| directive", "type", "default", "mandatory"
+   :widths: auto
+   :class: parameter-table
+
+   "``$OMHDFSDefaultTemplate``", "word", "RSYSLOG_FileFormat", "no"
+
+Default template to be used when none is specified. This saves the work of
+specifying the same template ever and ever again. Of course, the default
+template can be overwritten via the usual method.
+
+
+Caveats/Known Bugs
+==================
 
 Building omhdfs is a challenge because we could not yet find out how to
 integrate Java properly into the autotools build process. The issue is
 that HDFS is written in Java and libhdfs uses JNI to talk to it. That
-requires that various system-specific environment options and pathes be
-set correctly. At this point, we leave this to the user. If someone know
+requires that various system-specific environment options and paths be
+set correctly. At this point, we leave this to the user. If someone knows
 how to do it better, please drop us a line!
 
 -  In order to build, you need to set these environment variables BEFORE
@@ -58,15 +99,16 @@ how to do it better, please drop us a line!
    no known work-around for this (and it usually should not case any
    troubles.
 
-**Sample:**
 
-::
+Examples
+========
 
-  $ModLoad omhdfs $OMHDFSFileName /var/log/logfile \*.\* :omhdfs:
+Example 1
+---------
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
+.. code-block:: none
 
-Copyright © 2010-2014 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 3 or higher.
+   $ModLoad omhdfs
+   $OMHDFSFileName /var/log/logfile \*.\* :omhdfs:
+
+

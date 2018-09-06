@@ -31,7 +31,7 @@ The key to be looked up is an arbitrary string.
 array
 -----
 
-The value to be looked up is an integer number from a consequtive set.
+The value to be looked up is an integer number from a consecutive set.
 The set does not need to start at zero or one, but there must be no number missing.
 So, for example ``5,6,7,8,9`` would be a valid set of index values, while ``1,2,4,5`` would
 not be (due to missing ``3``).
@@ -53,17 +53,17 @@ Note that index integer numbers are represented by unsigned 32 bits.
 Lookup Table File Format
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Lookup table files contain a single JSON object. This object contains of a header and a table part.
+Lookup table files contain a single JSON object. This object consists of a header and a table part.
 
 **Header**
 
 The header is the top-level json.
-It has paramters "version", "nomatch", and "type".
+It has parameters "version", "nomatch", and "type".
 
 Parameters:
     **version** <number, default: 1> : Version of table-definition format (so improvements in the future can be managed in a backward compatible way).
 
-    **nomatch** <string litteral, default: ""> : Value to be returned for a lookup when match fails.
+    **nomatch** <string literal, default: ""> : Value to be returned for a lookup when match fails.
 
     **type** <*string*, *array* or *sparseArray*, default: *string*> : Type of lookup-table (controls how matches are performed).
 
@@ -89,10 +89,9 @@ This is a sample of how an ip-to-office mapping may look like:
         {"index" : "10.0.2.3", "value" : "B" }]}
 
 				
-Note: In the example above, if a different IP comes in, the value "unk" is returend thanks to the nomatch parameter in the first line.
+Note: In the example above, if a different IP comes in, the value "unk" is returned thanks to the nomatch parameter in the first line.
 
-Lookup tables can be access via the ``lookup()`` built-in function. Common usage pattern is to set a local variable to
-the lookup result and later use that variable in templates.
+Lookup tables can be accessed via the ``lookup()`` built-in function. A common usage pattern is to set a local variable to the lookup result and later use that variable in templates.
 
 
 
@@ -109,12 +108,12 @@ lookup_table(name="<table>" file="</path/to/file>"...) (object)
 
 ::
 
-   dyn_stats(name="msg_per_host")
+   lookup_table(name="msg_per_host")
 
 Parameters:
-    **name** <string litteral, mandatory> : Name of the table.
+    **name** <string literal, mandatory> : Name of the table.
 
-    **file** <string litteral, file path, mandatory> : Path to external json database file.
+    **file** <string literal, file path, mandatory> : Path to external json database file.
 
     **reloadOnHUP** <on|off, default: on> : Whether or not table should be reloaded when process receives HUP signal.
 
@@ -133,7 +132,7 @@ in lookup table identified by table-name. If no match is found (according to tab
 matching-criteria specified above), the "nomatch" string is returned (or an empty string if it is not defined).
 
 Parameters:
-    **name** <string litteral, mandatory> : Name of the table.
+    **name** <string literal, mandatory> : Name of the table.
     
     **expr** <expression resulting in string or number according to lookup-table type, mandatory> : Key to be looked up.
     
@@ -147,7 +146,7 @@ A ``lookup`` call looks like:
        ....
    }
 
-Some examples of different match/no-match senarios:
+Some examples of different match/no-match scenarios:
 
 **string table**:
 
@@ -228,9 +227,9 @@ Messages will continue to be processed while table is asynchronously reloaded.
 Note: For performance reasons, message that triggers reload should be accepted only from a trusted source.
 
 Parameters:
-    **name** <string litteral, mandatory> : Name of the table.
+    **name** <string literal, mandatory> : Name of the table.
     
-    **stub value** <string litteral, optional> : Value to stub the table in-case reload-attempt fails.
+    **stub value** <string literal, optional> : Value to stub the table in-case reload-attempt fails.
 
 A ``reload_lookup_table`` invocation looks like:
 

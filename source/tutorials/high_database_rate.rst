@@ -55,7 +55,7 @@ Buffering is fine. But how about these massive amounts of data? That
 can't be hold in memory, so don't we run out of luck with buffering? The
 key here is that rsyslog can not only buffer in memory but also buffer
 to disk (this may remind you of "spooling" which gets you the right
-idea). There are several queuing modes available, offering differnent
+idea). There are several queuing modes available, offering different
 throughput. In general, the idea is to buffer in memory until the memory
 buffer is exhausted and switch to disk-buffering when needed (and only
 as long as needed). All of this is handled automatically and
@@ -89,7 +89,7 @@ to a MySQL database and have buffering applied automatically.
 The simple setup above has one drawback: the write database action is
 executed together with all other actions. Typically, local files are
 also written. These local file writes are now bound to the speed of the
-database action. So if the database is down, or threre is a large
+database action. So if the database is down, or there is a large
 backlog, local files are also not (or late) written.
 
 **There is an easy way to avoid this with rsyslog.** It involves a
@@ -148,20 +148,3 @@ Revision History
 -  2008-01-28 \* `Rainer Gerhards`_ \*
    Updated to new v3.11.0 capabilities
 
-Copyright
----------
-
-Copyright (c) 2008 Rainer Gerhards and Adiscon.
-
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.2 or
-any later version published by the Free Software Foundation; with no
-Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
-copy of the license can be viewed at
-`http://www.gnu.org/copyleft/fdl.html <http://www.gnu.org/copyleft/fdl.html>`_.
-
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2008 by `Rainer Gerhards`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 2 or higher.

@@ -34,7 +34,7 @@ A template that can be used for the database write (please note the SQL template
 
 The following template emulates
 `WinSyslog <http://www.winsyslog.com/en/>`_ format (it's an
-`Adiscon`_ format, you do not feel bad if
+`Adiscon <http://www.adiscon.com/>`_ format, you do not feel bad if
 you don't know it ;)). It's interesting to see how it takes different
 parts out of the date stamps. What happens is that the date stamp is
 split into the actual date and time and the these two are combined with
@@ -173,7 +173,7 @@ The destination port is set to the default auf 514. Rsyslog is also
 capable of using much more secure and reliable TCP sessions for message
 forwarding. Also, the destination port can be specified. To select TCP,
 simply add one additional @ in front of the host name (that is, @host is
-UPD, @@host is TCP). For example:
+UDP, @@host is TCP). For example:
 
 ::
 
@@ -212,8 +212,3 @@ This rule forwards all messages that contain the word "error" in the msg
 part to the server "errorServer". Forwarding is via UDP. Please note the
 colon in fron
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2008-2014 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 2 or higher.

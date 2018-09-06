@@ -1,8 +1,7 @@
 Writing syslog messages to MySQL, PostgreSQL or any other supported Database
 ============================================================================
 
-*Written by* \ `Rainer
-Gerhards <http://www.adiscon.com/en/people/rainer-gerhards.php>`_\ *with
+*Written by* \ `Rainer Gerhards <https://rainer.gerhards.net>`_\ *with
 some additions by Marc Schiffbauer (2008-02-28)*
 
 Abstract
@@ -38,7 +37,7 @@ and make them write the data directly to the database. In this paper, I
 use that "direct write" approach. I think it is superior, because the
 syslogd itself knows the status of the database connection and thus can
 handle it intelligently (well ... hopefully ;)). I use rsyslogd to
-acomplish this, simply because I have initiated the rsyslog project with
+accomplish this, simply because I have initiated the rsyslog project with
 database-awareness as one goal.
 
 **One word of caution:** while message storage in the database provides
@@ -151,7 +150,7 @@ run the script with your favorite SQL client. Double-check that the
 table was successfully created.
 
 It is important to note that the correct database encoding must be used
-so that the database will accept strings independend of the string
+so that the database will accept strings independent of the string
 encoding. This is an important part because it can not be guarantied
 that all syslog messages will have a defined character encoding. This is
 especially true if the rsyslog-Server will collect messages from
@@ -168,11 +167,11 @@ is done by placing the
 
     ``$ModLoad ommysql``
 
-directive at the begining of /etc/rsyslog.conf for MySQL and
+directive at the beginning of /etc/rsyslog.conf for MySQL and
 
     ``$ModLoad ompgsql``
 
-``for PostgreSQL.``
+for PostgreSQL.
 
 For other databases, use their plugin name (e.g. omoracle).
 
@@ -272,13 +271,6 @@ recommended with databases).
 The method outlined in this paper provides an easy to setup and maintain
 solution for most use cases.
 
-Feedback Requested
-~~~~~~~~~~~~~~~~~~
-
-I would appreciate feedback on this paper. If you have additional ideas,
-comments or find bugs, please `let me
-know <mailto:rgerhards@adiscon.com>`_.
-
 References and Additional Material
 ----------------------------------
 
@@ -286,40 +278,3 @@ References and Additional Material
 
 -  `Paper on Syslog Server
    Optimization <http://www.monitorware.com/Common/en/Articles/performance-optimizing-syslog-server.php>`_
-
-Revision History
-----------------
-
--  2005-08-02 \* `Rainer
-   Gerhards <http://www.adiscon.com/en/people/rainer-gerhards.php>`_ \*
-   initial version created
-
--  2005-08-03 \* `Rainer
-   Gerhards <http://www.adiscon.com/en/people/rainer-gerhards.php>`_ \*
-   added references to demo site
-
--  2007-06-13 \* `Rainer
-   Gerhards <http://www.adiscon.com/en/people/rainer-gerhards.php>`_ \*
-   removed demo site - was torn down because too expensive for usage
-   count
-
--  2008-02-21 \* `Rainer
-   Gerhards <http://www.adiscon.com/en/people/rainer-gerhards.php>`_ \*
-   updated reliability section, can now be done with on-demand disk
-   queues
-
--  2008-02-28 \* `Rainer
-   Gerhards <http://www.adiscon.com/en/people/rainer-gerhards.php>`_ \*
-   added info on other databases, updated syntax to more recent one
-
--  2010-01-29 \* Marc Schiffbauer \* added some PostgreSQL stuff, made
-   wording more database generic, fixed some typos
-
-Copyright
----------
-
-Copyright (c) 2005-2010 `Rainer
-Gerhards <http://www.adiscon.com/en/people/rainer-gerhards.php>`_, Marc
-Schiffbauer and `Adiscon <http://www.adiscon.com/en/>`_.
-
-

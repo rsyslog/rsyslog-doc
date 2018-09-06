@@ -1,13 +1,13 @@
 $EscapeControlCharactersOnReceive
 ---------------------------------
 
-**Type:** global configuration directive
+**Type:** global configuration parameter
 
 **Default:** on
 
 **Description:**
 
-This directive instructs rsyslogd to replace control characters during
+This parameter instructs rsyslogd to replace control characters during
 reception of the message. The intent is to provide a way to stop
 non-printable messages from entering the syslog system as whole. If this
 option is turned on, all control-characters are converted to a 3-digit
@@ -32,8 +32,3 @@ To be compatible to sysklogd, this option must be turned on.
 
 ``$EscapeControlCharactersOnReceive on``
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2007 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 2 or higher.

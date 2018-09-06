@@ -7,13 +7,13 @@ $RulesetParser
 
 **Available since:** 5.3.4+
 
-**Default:** rsyslog.rfc5424 followed by rsyslog.rfc5425
+**Default:** rsyslog.rfc5424 followed by rsyslog.rfc3164
 
 **Description:**
 
 This directive permits to specify which `message
-parsers <messageparser.html>`_ should be used for the ruleset in
-question. It no ruleset is explicitely specified, the default ruleset is
+parsers <../../concepts/messageparser.html>`_ should be used for the ruleset in
+question. It no ruleset is explicitly specified, the default ruleset is
 used. Message parsers are contained in (loadable) parser modules with
 the most common cases (RFC3164 and RFC5424) being build-in into
 rsyslogd.
@@ -65,10 +65,10 @@ currently none known
 
 **Example:**
 
-This example assumes there are two devices emiting malformed messages
+This example assumes there are two devices emitting malformed messages
 via UDP. We have two custom parsers for them, named "device1.parser" and
 "device2.parser". In addition to that, we have a number of other devices
-sending wellformed messages, also via UDP.
+sending well-formed messages, also via UDP.
 
 The solution is to listen for data from the two devices on two special
 ports (10514 and 10515 in this example), create a ruleset for each and
@@ -125,9 +125,3 @@ Note the positions of the directives. With the current config language,
 **sequence of statements is very important**. This is ugly, but
 unfortunately the way it currently works.
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-
-Copyright © 2009 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 2 or higher.

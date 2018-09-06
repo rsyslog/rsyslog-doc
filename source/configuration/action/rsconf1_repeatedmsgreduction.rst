@@ -1,18 +1,18 @@
 $RepeatedMsgReduction
 ---------------------
 
-**Type:** global configuration directive
+**Type:** global configuration parameter
 
 **Default:** off
 
 Description
 ^^^^^^^^^^^
 
-This directive models old sysklogd legacy. **Note that many people,
+This parameter models old sysklogd legacy. **Note that many people,
 including the rsyslog authors, consider this to be a misfeature.** See
 *Discussion* below to learn why.
 
-This directive specifies whether or not repeated messages should be
+This parameter specifies whether or not repeated messages should be
 reduced (this is the "Last line repeated n times" feature). If set to
 *on*, repeated messages are reduced. If kept at *off*, every message is
 logged. In very early versions of rsyslog, this was controlled by the
@@ -58,7 +58,7 @@ Discussion
   "last message repeated" format.
 * This is a feature that worked decades ago when logs were small and reviewed
   by a human, it fails badly on high volume logs processed by tools.
-  
+
 Sample
 ^^^^^^
 
@@ -68,8 +68,3 @@ This turns on repeated message reduction (**not** recommended):
 
  $RepeatedMsgReduction on    # do not log repeated messages
 
-This documentation is part of the `rsyslog <http://www.rsyslog.com/>`_
-project.
-Copyright © 2007-2014 by `Rainer Gerhards <http://www.gerhards.net/rainer>`_
-and `Adiscon <http://www.adiscon.com/>`_. Released under the GNU GPL
-version 2 or higher.
