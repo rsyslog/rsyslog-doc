@@ -395,7 +395,7 @@ The following parameters can be set:
   This parameter specifies if an error shall be reported when an oversized
   message is seen. The default is "on".
 
-- **abortOnUncleanConfig** [boolean (on/of)] available 8.37.0+
+- **abortOnUncleanConfig** [boolean (on/off)] available 8.37.0+
 
   This parameter permits to prevent rsyslog from running when the
   configuration file is not clean. "Not Clean" means there are errors or
@@ -414,3 +414,14 @@ The following parameters can be set:
   the input is inside a lengthy operation, but should generally be tried to
   avoid. On busy systems it may make sense to increase that timeout. This
   especially seems to be the case with containers.
+
+- **compactJsonString** [boolean (on/off)] available 8.38.0+
+
+  This parameter specifies if export rsyslog variables as a compact json
+  string. For historical reasons, rsyslog export variables as a json string
+  separated by spaces. e.g. export variable $!, it may be like this:
+  { "obj": { "foo": "bar" }. Usually, there is no problem, programs can parse
+  it well also. But this form consumes more storage space(e.g. DISK, database)
+  because each field has extra space. If this parameter is "on", the variable
+  export will be a compact form, like: {"obj":{"foo":"bar"}. A smaller message
+  will be generated without extra space. The default is "off".
