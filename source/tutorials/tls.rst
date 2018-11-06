@@ -145,13 +145,14 @@ Client Setup
 ~~~~~~~~~~~~
 
 The client setup is equally simple. You need less certificates, just the
-CA cert. 
+CA & client cert. 
 
     ::
 
-        # certificate files - just CA for a client
+        # certificate files - just CA & cert for a client
         $DefaultNetstreamDriverCAFile /path/to/contrib/gnutls/ca.pem
-
+        $DefaultNetstreamDriverCertFile /path/to/contrib/gnutls/cert.pem
+        
         # set up the action
         $DefaultNetstreamDriver gtls # use gtls netstream driver
         $ActionSendStreamDriverMode 1 # require TLS for the connection
