@@ -178,15 +178,15 @@ TLS.PermittedPeer
 Peer Places access restrictions on this forwarder. Only peers which
 have been listed in this parameter may be connected to. This guards
 against rouge servers and man-in-the-middle attacks. The validation
-bases on the certficate the remote peer presents.
+is done based on the certficate the remote peer presents.
 
-The *peer* parameter lists permitted certificate fingerprints. Note
-that it is an array parameter, so either a single or multiple
-fingerprints can be listed. When a non-permitted peer is connected
-to, the refusal is logged together with it's fingerprint. So if the
-administrator knows this was a valid request, he can simple add the
-fingerprint by copy and paste from the logfile to rsyslog.conf. It
-must be noted, though, that this situation should usually not happen
+The *peer* parameter lists permitted certificate fingerprints or hostnames.
+Note that it is an array parameter, so either a single or multiple
+fingerprints or hostnames can be listed. When a non-permitted peer is
+connected to, the refusal is logged together with it's fingerprint.
+So if the administrator knows this was a valid request, he can simple
+add the fingerprint by copy and paste from the logfile to rsyslog.conf.
+It must be noted, though, that this situation should usually not happen
 after initial client setup and administrators should be alert in this
 case.
 
@@ -195,12 +195,15 @@ needed. Support for multiple peers is primarily included in support
 of load balancing scenarios. If the connection goes to a specific
 server, only one specific certificate is ever expected (just like
 when connecting to a specific ssh server).
-To specify multiple fingerprints, just enclose them in braces like
-this:
+To specify multiple fingerprints or hostnames, just enclose them
+in braces like this:
 
 .. code-block:: none
 
    tls.permittedPeer=["SHA1:...1", "SHA1:....2"]
+
+.. code-block:: none
+   tls.permittedPeer=["host1.domain.name", "*.domain2.name"]
 
 To specify just a single peer, you can either specify the string
 directly or enclose it in braces.
@@ -227,6 +230,9 @@ done against the certificate's subjectAltName and, as a fallback, the
 subject common name. If the certificate contains multiple names, a
 match on any one of these names is considered good and permits the
 peer to talk to rsyslog.
+
+Note that if *AuthMode* is not specified and a peer certificate is provided,
+*AuthMode* will default to "*fingerprint*".
 
 
 TLS.CaCert
