@@ -3,7 +3,7 @@ $RepeatedMsgReduction
 
 **Type:** global configuration parameter
 
-**Default:** off
+**Default:** on
 
 Description
 ^^^^^^^^^^^
