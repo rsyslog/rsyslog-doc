@@ -631,6 +631,21 @@ Upon truncation an error is given. When this parameter is turned off, no
 error will be shown upon truncation.
 
 
+neeParse
+^^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "binary", "off", "no", "none"
+
+.. versionadded:: 8.1903.0
+
+By default, message read are sent to output modules without passing through
+parsers. This parameter informs rsyslog to also use defined parser module(s).
+
 
 .. _Metadata:
 
