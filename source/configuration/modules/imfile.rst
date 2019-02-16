@@ -643,8 +643,8 @@ neeParse
 
 .. versionadded:: 8.1903.0
 
-By default, message read are sent to output modules without passing through
-parsers. This parameter informs rsyslog to also use defined parser module(s).
+By default, read message are sent to output modules without passing through
+parsers. This parameter informs rsyslog to use also defined parser module(s).
 
 
 .. _Metadata:
