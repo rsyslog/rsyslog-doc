@@ -187,22 +187,22 @@ cases.
 .. code-block:: none
 
   module(load="imbatchreport")
-  input(type="imbatchreport" reports="/test/*.ok"
+  input(type="imbatchreport" reports="/test/\*.ok"
         ruleset="myruleset" tag="batch"
-        delete=".ok$ .rejected"
+        delete=".ok\$ .rejected"
         programkey="SHELL" timestampkey="START"
      )
 
 The example show the delete action. All files corresponding to 
-"/test/*.ok" will be treated as batch reports and will be renamed
+"/test/\*.ok" will be treated as batch reports and will be renamed
 from <file>.ok to <file>.sent on success or 
 renamed from <file>.ok to <file>.rejected in other cases.
 
 .. code-block:: none
 
   module(load="imbatchreport")
-  input(type="imbatchreport" reports="/test/*.ok"
+  input(type="imbatchreport" reports="/test/\*.ok"
         ruleset="myruleset" tag="batch"
-        rename=".ok$ .sent .rejected"
+        rename=".ok\$ .sent .rejected"
         programkey="SHELL" timestampkey="START"
      )
