@@ -51,9 +51,9 @@ attributes.
 Compile
 =======
 
-To successfully compile improg module.
+To successfully compile imbatchreport module.
 
-    ./configure --enable-improg ...
+    ./configure --enable-imbatchreport ...
 
 Configuration Parameters
 ========================
