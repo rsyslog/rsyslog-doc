@@ -62,7 +62,7 @@ Action Parameters
 -----------------
 
 Reports
-^^^^^^
+^^^^^^^
 
 .. csv-table::
   :header: "type", "mandatory", "format", "default"
