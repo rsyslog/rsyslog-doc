@@ -180,7 +180,7 @@ Examples
 ========
 
 The example show the delete action. All files corresponding to 
-"/test/*.ok" will be treated as batch reports and will be deleted
+"/test/\*.ok" will be treated as batch reports and will be deleted
 on success or renamed from <file>.ok to <file>.rejected in other
 cases.
 
@@ -189,7 +189,7 @@ cases.
   module(load="imbatchreport")
   input(type="imbatchreport" reports="/test/\*.ok"
         ruleset="myruleset" tag="batch"
-        delete=".ok\$ .rejected"
+        delete=".ok$ .rejected"
         programkey="SHELL" timestampkey="START"
      )
 
@@ -203,6 +203,6 @@ renamed from <file>.ok to <file>.rejected in other cases.
   module(load="imbatchreport")
   input(type="imbatchreport" reports="/test/\*.ok"
         ruleset="myruleset" tag="batch"
-        rename=".ok\$ .sent .rejected"
+        rename=".ok$ .sent .rejected"
         programkey="SHELL" timestampkey="START"
      )
