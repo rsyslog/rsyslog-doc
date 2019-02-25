@@ -115,6 +115,20 @@ The syslog severity to be assigned to lines read. Can be specified
 in textual   form (e.g. ``info``, ``warning``, ...) or as numbers (e.g. 6
 for ``info``). Textual form is suggested.
 
+DeduplicateSpaces
+^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+  :header: "type", "mandatory", "format", "default"
+  :widths: auto
+  :class: parameter-table
+
+  "binary", "no", "", "on"
+
+The parameter modify the way consecutive spaces like chars are managed.
+When it is setted to "on", consecutive spaces like chars are reduced to a single one
+and trailing space like chars are supressed. 
+
 Delete
 ^^^^^^
 
