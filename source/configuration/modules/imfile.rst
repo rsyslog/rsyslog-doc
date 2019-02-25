@@ -549,6 +549,23 @@ when it was truncated (inode unchanged but file size on disk is less than
 current offset in memory).
 
 
+stateFileAlwaysRemove
+^^^^^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "binary", "off", "no", "none"
+
+If set to "on", the statefile for removed files will always be removed as well.
+Use this option to workarround problems related to logrotate in INOTIFY mode.
+Due the inaccurate timing of INOTIFY events, it can happen that events for the
+same filename are process in the wrong order. This leads to the problem that
+imfile cannot detect that rotated file was newly created.
+
+
 trimLineOverBytes
 ^^^^^^^^^^^^^^^^^
 
