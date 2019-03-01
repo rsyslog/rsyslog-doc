@@ -87,3 +87,4 @@ the HOSTNAME is overwritten and a tag is setted.
         call ...
     }
     input(type="imudp" port="514" ruleset="TagUDP")
+
