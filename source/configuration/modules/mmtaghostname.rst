@@ -1,6 +1,6 @@
-****************************************
+******************************************
 mmtaghostname: message modification module
-****************************************
+******************************************
 
 ================  ==============================================================
 **Module Name:**  **mmtaghostname**
@@ -8,8 +8,8 @@ mmtaghostname: message modification module
 ================  ==============================================================
 
 
-Purposes
-========
+Purpose
+=======
 
 As a message modification, it can be used in a different step of the
 message processing without interfering in the parsers' chain process
