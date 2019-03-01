@@ -21,12 +21,12 @@ The purposes are :
   a tag like imudp or imtcp. Useful when the tag is used for routing the
   message.
    
-- to force message hostname to the rsyslog valeur. The use case is
-  application in auto-scaling systems (AWS) providing logs through udp/tcp
-  were the name of the host is based on an ephemeral IPs with a short term
-  meaning. In this situation rsyslog local host name is generally the
-  auto-scaling name then logs produced by the application is affected to
-  the application instead of the ephemeral VM.
+- to force message hostname to the rsyslog valeur. 
+  AWS Use case : applications in auto-scaling systems provides logs to rsyslog
+  through udp/tcp. As a result of auto-scaling, the name of the host is based
+  on an ephemeral IPs (short term meaning). In this situation rsyslog local
+  hostname is generally closed to businesss rule. So replacing hostanme received
+  by the rsyslog local Hostname provide values to the logs collected.
 
 Compile
 =======
@@ -73,16 +73,17 @@ received from local application through imudp or imtcp.
 Sample
 ======
 
-In this simple the message received is parsed by RFC5424 parser and then 
+In this sample, the message received is parsed by RFC5424 parser and then 
 the HOSTNAME is overwritten and a tag is setted. 
 
 .. code-block:: none
 
     module(load='mmnull')
     module(load='imudp')
+    global(localhostname="salls-front")
     
     ruleset(name="TagUDP" parser=[ "rsyslog.rfc5424" ]) {
-        action(type="mmnull" tag="udp" forcelocalhostname="on")
+        action(type="mmnull" tag="front" forcelocalhostname="on")
         call ...
     }
     input(type="imudp" port="514" ruleset="TagUDP")
