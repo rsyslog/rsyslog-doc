@@ -8,33 +8,34 @@ mmnull: message modification module
 ================  ==============================================================
 
 
-Purpose
-=======
+Purposes
+========
 
- Its objectives are closed to this parser but as a message modification
- it can be used in a different step of the message processing without
- interfering in the parser chain process and can be applied before or
- after parsing process.
+As a message modification, it can be used in a different step of the
+message processing without interfering in the parsers' chain process
+and can be applied before or after parsing process.
+
+The purposes are :
  
- Its purposes are :
- 
- - to add a tag on message produce by input module which does not provide
-   a tag like imudp or imtcp. Useful when the tag is used for routing the
-   message.
+- to add a tag on message produce by input module which does not provide
+  a tag like imudp or imtcp. Useful when the tag is used for routing the
+  message.
    
- - to force message hostname to the rsyslog valeur. The use case is
-   application in auto-scaling systems (AWS) providing logs through udp/tcp
-   were the name of the host is based on an ephemeral IPs with a short term
-   meaning. In this situation rsyslog local host name is generally the
-   auto-scaling name then logs produced by the application is affected to
-   the application instead of the ephemeral VM.
+- to force message hostname to the rsyslog valeur. The use case is
+  application in auto-scaling systems (AWS) providing logs through udp/tcp
+  were the name of the host is based on an ephemeral IPs with a short term
+  meaning. In this situation rsyslog local host name is generally the
+  auto-scaling name then logs produced by the application is affected to
+  the application instead of the ephemeral VM.
 
 Compile
 =======
 
 To successfully compile mmnull module.
 
-    ./configure --enable-mmnull ...
+.. code-block:: none
+
+ ./configure --enable-mmnull ...
 
 Configuration Parameters
 ========================
