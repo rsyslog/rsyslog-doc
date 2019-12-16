@@ -494,6 +494,26 @@ StreamDriver.PrioritizeSAN
 Whether to use stricter SAN/CN matching. (driver-specific)
 
 
+StreamDriverRemoteSNI
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "string", "none", "no", "none"
+
+This allows you to specify a custom SNI to be sent to the remote server
+during TLS negotiation.
+
+If no SNI is specified, rsyslog's behavior is determined by the "target"
+parameter:
+
+- If the target is an IP address, rsyslog will not send an SNI.
+- Otherwise, rsyslog will use the hostname given in "target" as the SNI.
+
+
 ResendLastMSGOnReconnect
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
