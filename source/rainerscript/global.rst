@@ -54,7 +54,10 @@ The following parameters can be set:
 - **defaultNetstreamDriverCertFile**
 
   Machine public key (certificate)
-
+  
+  ossl: available 8.2001.0+ chained Certificates can be used now as we switched to 
+  `SSL_CTX_use_certificate_chain_file <https://www.openssl.org/docs/man1.0.2/man3/SSL_CTX_use_certificate_chain_file.html>`_ API. 
+  
 - **debug.gnutls** (0-10; default:0)
 
   Any other parameter than 0 enables the debug messages of GnuTLS. The
