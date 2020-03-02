@@ -605,14 +605,21 @@ This template
 .. code-block:: none
 
     template(name="outfmt" type="list" option.jsonf="on") {
+             constant(value="{")
              property(outname="@timestamp" name="timereported" dateFormat="rfc3339" format="jsonf")
+             constant(value=",")
              property(outname="host" name="hostname" format="jsonf")
+             constant(value=",")
              property(outname="severity" name="syslogseverity" caseConversion="upper" format="jsonf" datatype="number")
+             constant(value=",")
              property(outname="facility" name="syslogfacility" format="jsonf" datatype="number")
+             constant(value=",")
              property(outname="syslog-tag" name="syslogtag" format="jsonf")
+             constant(value=",")
              property(outname="source" name="app-name" format="jsonf" onEmpty="null")
+             constant(value=",")
              property(outname="message" name="msg" format="jsonf")
-
+             constant(value="}\n")
      }
 
 Generates output similar to this
