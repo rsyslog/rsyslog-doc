@@ -169,7 +169,7 @@ more commands:
 rsyslog 3.11.0 or above.
 
 In this example, the main message queue is NOT disk-assisted (there is
-no $MainMsgQueueFileName directive). We still could do that, but have
+no main_queue.filename directive). We still could do that, but have
 not done it because there seems to be no need. The only slow running
 action is the database writer and it has its own queue. So there is no
 real reason to use a large main message queue (except, of course, if you
