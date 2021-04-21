@@ -108,14 +108,22 @@ more commands:
 
 ::
 
-    $ModLoad ommysql # load the output driver (use ompgsql for PostgreSQL)
-    $ModLoad imudp # network reception 
-    $UDPServerRun 514 # start a udp server at port 514 
-    $ModLoad imuxsock # local message reception
-    $WorkDirectory /rsyslog/work # default location for work (spool) files
-    $ActionQueueType LinkedList # use asynchronous processing
-    $ActionQueueFileName dbq # set file name, also enables disk mode
-    $ActionResumeRetryCount -1 # infinite retries on insert failure 
+    # put the following line in your /etc/rsyslog.conf
+    $IncludeConfig /etc/rsyslog.d/*.conf
+    
+    # and this is an example configuration for mysql
+    ### Configuration file for rsyslog-mysql
+    ### Changes are preserved
+    # Load output module mysql
+    module (load="ommysql")
+    # Create action
+    #       *.*:            for all messages
+    #       type... :       insert into mysql to server.database_name with auth user and password
+    #       queue.  :       use the queue "databasequeue" as linked list as buffer
+    *.* action(type="ommysql" server="<hostname>" db="Syslog" uid="<database user name>" pwd="<database user password>"
+        queue.filename="databasequeue" queue.type="LinkedList" action.resumeRetryCount="-1"
+    )
+    ####
     # for PostgreSQL replace :ommysql: by :ompgsql: below: *.* :ommysql:hostname,dbname,userid,password;
 
 **This is the recommended configuration for this use case.** It requires
@@ -147,4 +155,6 @@ Revision History
    Initial Version created
 -  2008-01-28 \* `Rainer Gerhards`_ \*
    Updated to new v3.11.0 capabilities
+-  2021-04-21 \* `Stev Leibelt`_ \*
+   Updated configuration section to non legacy format
 
