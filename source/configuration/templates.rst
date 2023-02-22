@@ -135,7 +135,7 @@ sample of that use case from the rsylsog testbench:
 
 The following escape sequences are recognized inside the constant text:
 
--  \\\\ - single backslash
+-  \\ - single backslash
 -  \\n - LF
 -  \\ooo - (three octal digits) - represents a character with this
    octal numerical value (e.g. \\101 equals "A"). Note that three octal digits
