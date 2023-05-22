@@ -25,6 +25,9 @@ terminates, the program's stdin will see EOF. The program must then
 terminate. The message format passed to the program can, as usual, be
 modified by defining rsyslog templates.
 
+If you need to invoke a program per every message, a wrapper can be
+used, see :ref:`omprog-example-msmtp`.
+
 Note that in order to execute the given program, rsyslog needs to have
 sufficient permissions on the binary file. This is especially true if
 not running as root. Also, keep in mind that default SELinux policies
@@ -526,6 +529,50 @@ rsyslog will kill and restart it.
 
 Note that the ``useTransactions`` flag is not used in this example. The
 program stores and confirms each log individually.
+
+
+.. _omprog-example-msmtp:
+
+Example: sending mail to a smart host with authentication
+---------------------------------------------------------
+
+Here we rely on an additional POSIX shell script to execute a command per each
+message.
+
+.. code-block:: none
+
+   module(load="omprog")
+
+   template(name="mailData" type="string" string="Subject: disk problem on %hostname%\n\nRSYSLOG Alert\nmsg='%msg%'\n__RSYSLOG_ENDMSG__\n")
+
+   if $msg contains "hard disk fatal failure" then {
+      action(type="omprog"
+             binary="/usr/share/logging/omprog-dequeue.sh /usr/bin/msmtp --auth=on --tls=on --tls-starttls=on --host=mail.example.net --port=587 --user=rsyslog@example.net \"--passwordeval=echo rsyslog-password\" --from=rsyslog@example.net operator@example.net"
+             template="mailData"
+             confirmMessages="on")
+   }
+
+The ``omprog-dequeue.sh`` source:
+
+.. code-block:: bash
+
+   #!/bin/sh
+
+   echo OK
+
+   while read -r line; do
+           if [ "$line" = "__RSYSLOG_ENDMSG__" ]; then
+                   if echo "$msg" | "$@"; then
+                           echo OK
+                   else
+                           echo ERROR
+                   fi
+                   msg=""
+           else
+                   msg="${msg:+$msg
+   }$line"
+           fi
+   done
 
 
 |FmtObsoleteName| directives
