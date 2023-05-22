@@ -84,10 +84,15 @@ binary
 
    "string", "", "yes", "``$ActionOMProgBinary``"
 
-Full path and command line parameters of the external program to execute.
+Full path and command line parameters of the external program to execute. The
+arguments are split on spaces; if you need to embed a space, add double quotes
+to the very beginning and the end of the argument, at all other places the
+double quotes symbol is passed as is.
+
 Arbitrary external programs should be placed under the /usr/libexec/rsyslog directory.
 That is, the binaries put in this namespaced directory are meant for the consumption
 of rsyslog, and are not intended to be executed by users.
+
 In legacy config, it is **not possible** to specify command line parameters.
 
 
@@ -472,14 +477,14 @@ Example: command line arguments
 
 In the following example, logs will be sent to a program ``log.sh`` located
 in ``/usr/libexec/rsyslog``. The program will receive the command line arguments
-``p1``, ``p2`` and ``--param3="value 3"``.
+``p1``, ``p2`` and ``--param3=value 3``.
 
 .. code-block:: none
 
    module(load="omprog")
 
    action(type="omprog"
-          binary="/usr/libexec/rsyslog/log.sh p1 p2 --param3=\"value 3\""
+          binary="/usr/libexec/rsyslog/log.sh p1 p2 \"--param3=value 3\""
           template="RSYSLOG_TraditionalFileFormat")
 
 
