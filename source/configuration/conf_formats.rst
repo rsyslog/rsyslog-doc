@@ -2,15 +2,8 @@ Configuration Formats
 =====================
 
 Rsyslog has evolved over several decades. For this reason it supports three
-different configuration formats ("languages"):
-
--  |FmtBasicName| - previously known as the :doc:`sysklogd  <sysklogd_format>`
-   format, this is the format best used to express basic things, such as where
-   the statement fits on a single line. It stems back to the original
-   syslog.conf format, in use now for several decades.
-
-   The most common use case is matching on facility/severity and writing
-   matching messages to a log file.
+different configuration formats ("languages"), but only |FmtAdvancedName| is
+recommended for new work on config files:
 
 -  |FmtAdvancedName| - previously known as the ``RainerScript`` format, this
    format was first available in rsyslog v6 and is the current, best and most
@@ -23,9 +16,20 @@ different configuration formats ("languages"):
    This new style format is specifically targeted towards more advanced use
    cases like forwarding to remote hosts that might be partially offline.
 
+-  |FmtBasicName| - previously known as the :doc:`sysklogd  <sysklogd_format>`
+   format, this is the format can be used to express basic things, such as where
+   the statement fits on a single line. It stems back to the original
+   syslog.conf format and is in use now for several decades.
+
+   Long-time syslog users may know this format. It is terse but if you like it
+   feel free to continue to use it. The most common use case is matching on
+   facility/severity and writing matching messages to a log file. For new
+   users or slightly more complex use cases, we strongly recommend to use
+   |FmtAdvancedName| instead.
+
 -  |FmtObsoleteName| - previously known simply as the ``legacy`` format, this
-   format is exactly what its name implies: it is obsolete and should not
-   be used when writing new configurations. It was created in the early
+   format is exactly what its name implies: **it is obsolete and should not
+   be used when writing new configurations.** It was created in the early
    days (up to rsyslog version 5) where we expected that rsyslog would extend
    sysklogd just mildly.  Consequently, it was primarily aimed at small
    additions to the original sysklogd format. Practice has shown that it
@@ -34,7 +38,7 @@ different configuration formats ("languages"):
 
    In essence, everything that needs to be written on a single line that
    starts with a dollar sign is legacy format. Users of this format are
-   encouraged to migrate to the |FmtBasicName| or |FmtAdvancedName| formats.
+   encouraged to migrate to the |FmtAdvancedName| format.
 
 Which Format should I Use?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
