@@ -16,7 +16,7 @@ Changing the default log format to GELF
 
 To make rsyslog send GELF we basically need to create a custom template.
 This template will define the format in which the log messages will get 
-sent to Graylog.
+sent to Graylog. You can define a template in your `rsyslog.conf`:
 
 ::
 
@@ -56,6 +56,16 @@ Graylog expects a Nullbyte as message delimiter. So, to use TCP, you need to cha
 
     # syslog forwarder via TCP
     action(type="omfwd" target="graylogserver" port="12201" protocol="tcp" template="gelf" TCP_FrameDelimiter="0" KeepAlive="on")
+
+You can leverage templates using traditional syslog priority based filters as well:
+
+::
+
+    # syslog forwading using priority filter
+    $template gelf,gelf
+    *.emerg @graylogserver:12201;gelf
+
+Keep in mind that a @ uses UDP for transmission while @@ uses TCP.
 
 Conclusion
 ----------
