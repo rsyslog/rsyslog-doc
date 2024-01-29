@@ -1,5 +1,130 @@
-Configuration Formats
-=====================
+Choosing the Right Rsyslog Configuration Format
+===============================================
+
+Rsyslog, a versatile logging daemon, offers three configuration formats: **Basic**, **Advanced**, and **Obsolete Legacy**. While the Basic Format was once considered a viable option for simple configurations, it is now discouraged for all use cases.
+
+Advanced Format: The Recommended Choice for All Scenarios
+---------------------------------------------------------
+
+The **Advanced Format**, formerly known as the RainerScript format, is the recommended choice for any rsyslog configuration. It provides enhanced control over rsyslog operations, making it the preferred format for all deployments, from simple to complex.
+
+The Advanced Format is particularly well-suited for scenarios involving multiple log destinations, conditional routing, and detailed log handling. Its structured block syntax enhances readability and maintainability, while its support for include files simplifies configuration management.
+
+Basic Format: A Discouraged Option
+----------------------------------
+
+The **Basic Format**, also known as the sysklogd format, is no longer recommended, even for simple configurations. Its limitations in terms of control, readability, and maintainability make it a less suitable choice for modern logging needs.
+
+The Basic Format may still be present in legacy configurations, but it is strongly recommended to migrate to the Advanced Format to benefit from its enhanced capabilities.
+
+Obsolete Legacy Format: Avoid for Maintainability and Readability
+-----------------------------------------------------------------
+
+The **Obsolete Legacy Format**, introduced in rsyslog versions 1 through 5, is no longer recommended for new or existing configurations. It was primarily designed to extend the capabilities of the original syslog.conf format but has proven difficult to use effectively for more advanced setups.
+
+Due to its inherent limitations and lack of support for modern features, the Obsolete Legacy Format is discouraged for use. While it may still be present in legacy configurations, it is recommended to migrate to the Basic or Advanced formats for better maintainability and readability.
+
+Conclusion: Embrace the Advanced Format for Enhanced Flexibility
+----------------------------------------------------------------
+
+With its enhanced control, readability, and support for modern features, the **Advanced Format** is the clear choice for all rsyslog configurations, regardless of their complexity.
+
+The Basic Format can still be used if preferred, but its limitations make it less suitable for maintainable and scalable logging solutions.
+
+As for the Obsolete Legacy Format, it should be eliminated altogether to ensure a modern and maintainable logging infrastructure.
+
+Recommendations:
+----------------
+
+* **Adopt the Advanced Format as the default choice for all new and existing rsyslog configurations.**
+* **Migrate from the Basic Format to the Advanced Format whenever possible.**
+* **Eliminate the Obsolete Legacy Format to avoid its limitations and maintainability issues.**
+
+By following these recommendations, you can ensure that your rsyslog configuration is both powerful and maintainable, providing a solid foundation for your logging needs.
+
+
+ALTERNATE
+=========
+
+
+========================================
+Revised Rsyslog Configuration Formats Guide
+========================================
+
+Overview of Rsyslog Configuration Formats
+=========================================
+
+As rsyslog has progressed, it now endorses two main configuration formats. These formats are designed to cater to a range of logging requirements, from simple to complex.
+
+Advanced Format (Formerly RainerScript Format)
+----------------------------------------------
+
+*Preferred for Modern Use*
+   The advanced format, introduced in rsyslog v6, is the recommended choice for all levels of complexity in modern logging scenarios.
+
+*Performance and Flexibility*
+   Originally perceived as performance-heavy, the advanced format has evolved to be efficient and versatile in the latest rsyslog versions.
+
+*Ideal for Complex Tasks*
+   Especially suited for intricate configurations, like handling logs with intermittently available remote hosts.
+
+**Example**::
+
+    mail.err action(type="omfwd" protocol="tcp" queue.type="linkedList")
+
+*Advantages*
+
+- Offers nuanced control through detailed parameters.
+- Uses a clear block structure, enhancing readability and manageability.
+- Perfectly suited for configurations that include multiple files.
+
+*Recommendation*
+   Opt for the advanced format in all new projects. Its comprehensive features and straightforward design make it the superior choice for any logging requirement.
+
+Basic Format (Previously Sysklogd Format)
+-----------------------------------------
+
+*Simplicity with Limitations*
+   The basic format is simple but limited in scope and flexibility. It's derived from the traditional syslog.conf format and is familiar in the industry.
+
+*Not Recommended for New Users*
+   Though basic, this format can appear cryptic and is often misunderstood by those new to syslog logging.
+
+**Example**::
+
+    mail.info /var/log/mail.log
+    mail.err @@server.example.net
+
+*Guidance*
+   Use the basic format only if you are comfortable with its limitations and simplicity. For new projects and users, the advanced format is strongly advised.
+
+Obsolete Legacy Format
+-----------------------
+
+*Not Recommended*
+   This format is outdated and generally discouraged for any new configurations.
+
+*Legacy Support*
+   Its existence in rsyslog is to support older setups.
+
+*Transition Advice*
+   Users are encouraged to migrate to the advanced format for a more efficient and clearer configuration experience.
+
+Selecting the Appropriate Format
+================================
+
+1. **Advanced Format**: The top recommendation for all new and existing projects. It's robust, user-friendly, and adaptable to a wide range of logging scenarios.
+
+2. **Basic Format**: Consider using only if you have existing setups that utilize it, and you prefer its simplicity.
+
+3. **Avoid Obsolete Legacy Format**: To ensure efficiency and modern standards in your logging setup, refrain from using the obsolete legacy format.
+
+By aligning your configuration with the advanced format, you can fully leverage the capabilities of rsyslog, ensuring a more efficient, clear, and future-proof logging solution.
+
+
+
+OLD
+===
 
 Rsyslog has evolved over several decades. For this reason it supports three
 different configuration formats ("languages"):
