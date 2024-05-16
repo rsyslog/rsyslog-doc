@@ -91,7 +91,7 @@ the integer could become negative and this would result in a
 Segmentation Fault. (Max Value = 200000000)
 
 
-NotifyOnConnectionOpen
+NotifyOnConnectionClose
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 .. csv-table::
