@@ -11,8 +11,8 @@ ommysql: MySQL Database Output Module
 Purpose
 =======
 
-This module provides native support for logging to MySQL databases. It
-offers superior performance over the more generic
+This module provides native support for logging to MySQL / MariaDB 
+databases. It offers superior performance over the more generic
 `omlibdbi <omlibdbi.html>`_ module.
 
 
