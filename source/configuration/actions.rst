@@ -508,7 +508,7 @@ will most probably be developed as plugins. By default, a
 `MonitorWare <https://www.mwagent.com/>`_-compatible schema is
 required for this to work. You can create that schema with the
 createDB.SQL file that came with the rsyslog package. You can also
-use any other schema of your likinhttps://www.rsyslog.com/doc/installation/install_from_source.htmlg - you just need to define a proper
+use any other schema of your liking - you just need to define a proper
 template and assign this template to the action.
 The database writer is called by specifying a greater-then sign (">")
 in front of the database connect information. Immediately after that

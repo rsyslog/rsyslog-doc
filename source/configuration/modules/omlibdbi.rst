@@ -22,8 +22,8 @@ of this writing, the following drivers are available:
 -  `FreeTDS <http://www.freetds.org/>`_ (provides access to `MS SQL
    Server <http://www.microsoft.com/sql>`_ and
    `Sybase <http://www.sybase.com/products/informationmanagement/adaptiveserverenterprise>`_)
--  `MariaDB <http://www.mariadb.org/>`_/`MySQL <http://www.mysql.com/>`_ (also supported via the native
-   `ommysql <ommysql.html>`_ plugin in rsyslog)
+-  `MariaDB <http://www.mariadb.org/>`_/`MySQL <http://www.mysql.com/>`_ 
+    (also supported via the `ommysql <ommysql.html>`_ plugin in rsyslog)
 -  `PostgreSQL <http://www.postgresql.org/>`_\ (also supported via the
    native `ommysql <ommysql.html>`_ plugin in rsyslog)
 -  `SQLite/SQLite3 <http://www.sqlite.org/>`_

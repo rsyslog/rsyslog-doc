@@ -1,4 +1,4 @@
-Writing syslog messages to MySQL, MariaDB, PostgreSQL or any other supported Database
+Writing syslog messages to MariaDB, MySQL, PostgreSQL or any other supported Database
 =====================================================================================
 
 *Written by* \ `Rainer Gerhards <https://rainer.gerhards.net>`_\ *with
