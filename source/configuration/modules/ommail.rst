@@ -199,7 +199,10 @@ the module implements only the bare SMTP essentials. Most importantly,
 it does not provide any authentication capabilities. So your mail server
 must be configured to accept incoming mail from ommail without any
 authentication needs (this may be change in the future as need arises,
-but you may also be referred to sendmail-mode).
+but you may also be referred to sendmail-mode). A suitable minimal
+server ``msmtpd`` is part of `msmtp <https://marlam.de/msmtp/>`_
+software and can be run locally to forward all the mail to a smart host
+with support for TLS and authentication.
 
 In theory, ommail should also offer a mode where it uses the sendmail
 utility to send its mail (sendmail-mode). This is somewhat less reliable
@@ -212,6 +215,9 @@ whistles of a full-blown SMTP implementation and may even work for local
 delivery without a SMTP server being present. Sendmail mode will be
 implemented as need arises. So if you need it, please drop us a line (If
 nobody does, sendmail mode will probably never be implemented).
+
+Alternatively, consider using `omprog` as shown in
+:ref:`omprog-example-msmtp`.
 
 
 Examples
