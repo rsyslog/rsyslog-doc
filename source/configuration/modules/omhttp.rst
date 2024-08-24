@@ -633,7 +633,7 @@ statsname
 
 The name assigned to statistics specific to this action instance. The supported set of
 statistics tracked for this action instance are **submitted**, **acked**, **failures**.
-See the :ref:`_statistic_counter_label` section for more details.
+See the :ref:`statistic_counter_label` section for more details.
 
 
 
@@ -664,7 +664,7 @@ accumulates all action instances. The statistic origin is named "omhttp" with fo
 - **request.status.fail** - Number of requests returning 3XX, 4XX, or 5XX HTTP status codes. If a requests fails (i.e. server not reachable) this counter will *not* be incremented.
 
 
-Additionally, the following statistics can also be configured for a specific action instances. See :ref:`_statsname_label` for more details.
+Additionally, the following statistics can also be configured for a specific action instances. See :ref:`statsname_label` for more details.
 
 - **requests.count** - Number of requests 
 
