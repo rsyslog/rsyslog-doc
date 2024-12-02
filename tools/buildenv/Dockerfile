@@ -1,7 +1,6 @@
-FROM	alpine
+FROM	alpine:3.20
 LABEL	maintainer rgerhards@adiscon.com
-RUN	apk add --no-cache py-pip git
-RUN	pip install sphinx
+RUN	apk add --no-cache git py3-sphinx
 RUN	adduser -s /bin/ash -D rsyslog rsyslog \
 	&& echo "rsyslog ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 WORKDIR	/home/appliance
