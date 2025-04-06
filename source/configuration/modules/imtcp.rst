@@ -618,6 +618,20 @@ PreserveCase
 
 This parameter is for controlling the case in fromhost.  If preservecase is set to "off", the case in fromhost is not preserved.  E.g., 'host1.example.org' the message was received from 'Host1.Example.Org'.  Default to "on" for the backward compatibility.
 
+NetworkNamespace
+^^^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "string", none, "no", "none"
+
+.. versionadded:: 8.2502.0 aka 2024.12
+
+This parameter sets the default network namespace for subsequent input instances.  There is no default, which means the current network namespace is used. This is the network namespace in effect when the rsyslogd process is started, and is also referred as the startup network namespace.  As a module parameter, this value is used when it is not provided by an input instance parameter.  It should exist as a named file under /var/run/netns/.  Rsyslogd must be explicitly built with namespace support, otherwise an error will occur when the namespace is subsequently used against an input stream.  The underlying operating system must also support the setns() system call, otherwise the input instance will be unable to bind within the given namespace.
+
 
 Input Parameters
 ----------------
@@ -664,6 +678,23 @@ Address
 
 On multi-homed machines, specifies to which local address the
 listener should be bound.
+
+
+NetworkNamespace
+^^^^^^^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "string", none, "no", "none"
+
+.. versionadded:: 8.2502.0 aka 2024.12
+
+This parameter sets the network namespace for this input.  It declares the namespace to which the Address and Port parameters apply. When no parameter is provided, the module NetworkNamespace parameter, if any, is used.  If a module specific NetworkNamespace parameter is set, but you wish to use the startup network namespace, then set this input parameter to the empty string.  The selected NetworkNamespace must exist under /var/run/netns/, and have network devices suitable for listening according to the Address and Port parameters.
+
+Rsyslogd must be explicitly built with namespace support, otherwise an error will occur during listening port creation. The underlying operating system must also support the setns() system call, otherwise the input instance will be unable to bind within the given namespace.
 
 
 Name
@@ -1294,7 +1325,7 @@ Examples
 Example 1
 ---------
 
-This sets up a TCP server on port 514 and permits it to accept up to 500
+This sets up a TCP server on port 514 in the startup network namespace and permits it to accept up to 500
 connections:
 
 .. code-block:: none
@@ -1305,6 +1336,33 @@ connections:
 
 Note that the global parameters (here: max sessions) need to be set when
 the module is loaded. Otherwise, the parameters will not apply.
+
+Example 2
+---------
+
+When multiple network namespaces exist, a single instance of rsyslogd can accept messages from each namespace.  This sets up a TCP server on port 514 in each of three named network namespaces, in addition to the startup network namespace:
+
+.. code-block:: none
+
+   module(load="imtcp" MaxSessions="500")
+   input(type="imtcp" port="514" NetworkNamespace="ns_eth0.0")
+   input(type="imtcp" port="514" NetworkNamespace="ns_eth0.1")
+   input(type="imtcp" port="514" NetworkNamespace="ns_eth0.2")
+   input(type="imtcp" port="514")
+
+
+Example 3
+---------
+
+In this example, a module default network namespace is used, and multiple TCP servers are started against that default.  We also show how setting the NetworkNamespace to the empty string returns the input instance to using the startup namespace.  Note how explicit Address parameters are used to restrict the interfaces which receive packets.  If all interfaces can accept packets, then we would only need one input instance for a particular namespace, and would leave out the Address parameter.  This can be used together with PermittedPeer list to tightly control what listening ports are exposed, and which peers we will accept packets from.
+
+.. code-block:: none
+
+   module(load="imtcp" MaxSessions="500" NetworkNamespace="ns_eth0")
+   input(type="imtcp" Address="172.0.0.1" port="514")
+   input(type="imtcp" Address="172.0.1.1" port="514")
+   input(type="imtcp" Address="172.0.2.1" port="514")
+   input(type="imtcp" port="514" NetworkNamespace="")
 
 
 Additional Resources
