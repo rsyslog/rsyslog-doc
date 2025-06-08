@@ -168,6 +168,9 @@ later steps are identical, so those steps have been covered in one place.
     1. `sphinx-build -b html source build`
 1. Generate EPUB format
     1. `sphinx-build -b epub source build`
+1. Generate Markdown format (requires `pandoc`)
+    1. `./tools/build_markdown.sh`
+    - The resulting `rsyslog-doc.md` file is written to `build_markdown/`.
 1. Review generated contents
     - Open rsyslog-doc/build/index.html in a browser
     - Use Calibre, Microsoft Edge, Okular, Google Play Books or any other

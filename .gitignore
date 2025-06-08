@@ -1,4 +1,5 @@
 build
+build_markdown
 source/_build
 .project
 .vscode
