@@ -533,6 +533,21 @@ Socket
 Adds additional unix socket. Formerly specified with the ``-a`` option.
 
 
+SocketType
+^^^^^^^^^^
+
+.. csv-table::
+   :header: "type", "default", "mandatory", "|FmtObsoleteName| directive"
+   :widths: auto
+   :class: parameter-table
+
+   "string", "dgram", "no", "none"
+
+Allows to specify the type of socket to be created.
+Currently supported values are ``dgram`` and ``stream``.
+For more information about this option see manual page ``socket(2)``.
+
+
 HostName
 ^^^^^^^^
 
