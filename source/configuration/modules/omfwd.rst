@@ -177,7 +177,7 @@ Type of protocol to use for forwarding. Note that ``tcp`` includes both legacy
 plain TCP syslog and 
 `RFC5425 <https://datatracker.ietf.org/doc/html/rfc5425>`_-based TLS-encrypted 
 syslog. The selection depends on the StreamDriver parameter. If StreamDriver is 
-set to "ossl" or "gtls", it will use TLS-encrypted syslog.
+set to "ossl", "gtls" or "mbedtls", it will use TLS-encrypted syslog.
 
 
 NetworkNamespace
@@ -538,7 +538,7 @@ StreamDriver
 The recommended alias, compatible with imtcp, is "StreamDriver.Name".
 
 Choose the stream driver to be used. Default is plain tcp, but
-you can also choose "ossl" or "gtls" for TLS encryption.
+you can also choose "ossl" "gtls" or "mbedtls" for TLS encryption.
 
 Note: aliases help, but are not a great solution. They may
 cause confusion if both names are used together in a single
